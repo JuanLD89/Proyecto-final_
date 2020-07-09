@@ -23,6 +23,10 @@ public:
     ~MainWindow();
 
 
+private slots:
+    void niveles();
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
@@ -30,6 +34,8 @@ private:
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;
+    int x = 0;
+
 
 };
 #endif // MAINWINDOW_H

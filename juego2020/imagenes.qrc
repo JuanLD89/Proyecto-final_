@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/imagen">
+        <file>Overlord_III_Episode_13 (1).png</file>
+        <file>momonga1.png</file>
+    </qresource>
+</RCC>
