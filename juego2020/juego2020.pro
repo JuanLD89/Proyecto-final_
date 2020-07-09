@@ -16,11 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    anillo.cpp \
+    enemigo.cpp \
+    guardar.cpp \
+    jugador.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    salud.cpp
 
 HEADERS += \
-    mainwindow.h
+    anillo.h \
+    enemigo.h \
+    guardar.h \
+    jugador.h \
+    mainwindow.h \
+    salud.h
 
 FORMS += \
     mainwindow.ui
