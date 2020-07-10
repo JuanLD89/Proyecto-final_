@@ -7,6 +7,9 @@
 #include <QFile>
 #include <QKeyEvent>
 #include <QImage>
+#include "actualizaciones.h"
+#include "jugador.h"
+#include <QList>
 
 
 
@@ -20,12 +23,14 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow();                      //destructor
 
 
 private slots:
-    void niveles();
-    void on_pushButton_clicked();
+    void actualizar();           //actualiza la posicion dependiendo del timer para la colision
+    void niveles();             //actualiza el nivel en el que se encuentra el jugador
+
+    void on_pushButton_clicked();       //funcial para la aaccion que el prograama tomará al pulsar START
 
 private:
     Ui::MainWindow *ui;
@@ -33,8 +38,12 @@ private:
     QGraphicsScene *scene;      //scene que muestra los objetos animados
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
-    int v_limit;
+    int v_limit;                //longitud en Y del mundo
     int x = 0;
+    void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
+    void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador
+    QList<Jugador*> ainz;   //lista con los cuerpos para mostrarlos.
+
 
 
 };
