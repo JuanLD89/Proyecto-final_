@@ -4,20 +4,41 @@
 #include <time.h>       /* time */
 
 
-Jugador::Jugador()
+Jugador::Jugador(int x)
 {
-    setPixmap(QPixmap(":/imagen/momonga perfil.png"));      //da una imagen al personaje
     float posx, posy, velx , vely ,r, mass, K, e;
-    posx = 105;      //declara la posición en X inicial del personaje
-    posy = 300;     //declara la posición en Y inicial del personaje
-    r = 65;         //declara el radio del personaje
-    mass = 50;      //declara la masa del personaje
-    velx = 0;       //la velocidad inicial  X del personaje
-    vely = 0;       //la velocidad inicial  Y del personaje
-    K = 0.08;       //determina la resistencia al aire del personaje
-    e = 0.2;        //determina el coeficiente de restitución que tendra el personaje
 
-    player = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);       //aplica las propiedades anteriores al personaje
+    if (x==1){
+        setPixmap(QPixmap(":/imagen/albedochibi (1).png"));
+    }
+
+    if (x==2){
+        setPixmap(QPixmap(":/imagen/shalltear.png"));
+    }
+    if (x==1){
+        posx = 105;
+        posy = 185;
+        r = 65;
+        mass = 50;
+        velx = 0;
+        vely = 0;
+        K = 0.08;
+        e = 0.2;
+        player = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);
+
+    }
+    if (x==2){
+        posx = 1040;
+        posy = 185;
+        r = 65;
+        mass = 50;
+        velx = 0;
+        vely = 0;
+        K = 0.08;
+        e = 0.2;
+        player = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);
+
+    }
 }
 
 Jugador::~Jugador()         //destructor

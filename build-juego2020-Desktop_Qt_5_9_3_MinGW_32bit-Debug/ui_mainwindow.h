@@ -29,6 +29,7 @@ public:
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
     QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -45,6 +46,9 @@ public:
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(1220, 20, 71, 41));
+        pushButton_2 = new QPushButton(centralwidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(1220, 70, 75, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -63,6 +67,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "START", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Multi-player", Q_NULLPTR));
     } // retranslateUi
 
 };

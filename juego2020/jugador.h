@@ -12,15 +12,15 @@
 class Jugador: public QObject, public QGraphicsPixmapItem       //usa la libreria QGraphicsPixmapItem para dibujar al personaje
 {
 public:
-    Jugador();
+    Jugador(int x);
     ~Jugador();
 
     void actualizar(float v_lim);               //actualiza las posiciones del jugador
     actualizaciones* getPlayer();               //declara un puntero getplayer como conexión con la clase actualizaciones
-    Jugador *player1;                           //declara un puntero player1 como conexión con la clase Jugador
 
 private:
     actualizaciones* player;                     //declara un puntero player como conexión con la clase actualizaciones
+    int player3;
 };
 
 #endif // JUGADOR_H
