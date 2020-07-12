@@ -11,8 +11,6 @@
 #include "jugador.h"
 #include <QList>
 
-
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -24,7 +22,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();                      //destructor
+    Enemy *enemigos;
+    QList<Enemy*> enemigoss;
 
+public slots:
+    void spawn();
 
 private slots:
     void actualizar();           //actualiza la posicion dependiendo del timer para la colision
@@ -42,9 +44,7 @@ private:
     int x = 0;
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador
-    QList<Jugador*> ainz;   //lista con los cuerpos para mostrarlos.
-
-
+    Jugador *ainz = new Jugador();
 
 };
 #endif // MAINWINDOW_H

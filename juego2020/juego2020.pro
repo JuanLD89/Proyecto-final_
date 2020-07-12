@@ -18,9 +18,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     actualizaciones.cpp \
     anillo.cpp \
-    enemigo.cpp \
+    enemy.cpp \
     guardar.cpp \
     jugador.cpp \
+    magia.cpp \
     main.cpp \
     mainwindow.cpp \
     salud.cpp
@@ -28,9 +29,10 @@ SOURCES += \
 HEADERS += \
     actualizaciones.h \
     anillo.h \
-    enemigo.h \
+    enemy.h \
     guardar.h \
     jugador.h \
+    magia.h \
     mainwindow.h \
     salud.h
 

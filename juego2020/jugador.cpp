@@ -35,3 +35,7 @@ actualizaciones *Jugador::getPlayer()
 {
     return player;          //retornal personaje con todas sus cualidades, su posicion, su masa, su radio, sus velocidades iniciales, etc
 }
+
+
+
+

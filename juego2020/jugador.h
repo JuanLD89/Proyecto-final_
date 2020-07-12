@@ -7,6 +7,7 @@
 #include <stdlib.h>     /* srand, rand, abs */
 #include <time.h>       /* time */
 #include "actualizaciones.h"
+#include "enemy.h"
 
 class Jugador: public QObject, public QGraphicsPixmapItem       //usa la libreria QGraphicsPixmapItem para dibujar al personaje
 {
