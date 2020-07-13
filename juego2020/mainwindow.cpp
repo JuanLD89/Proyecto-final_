@@ -58,7 +58,7 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
 void MainWindow::on_pushButton_clicked()
 {
-    x = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
+    n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
     niveles();                          //invoca la función niveles
     timer->start(6);
     if(ainz1.size() < 1){
@@ -75,7 +75,7 @@ void MainWindow::on_pushButton_clicked()
 }
 
 void MainWindow::niveles(){
-    if(x == 0){
+    if(n == 0){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);                  //declara la escena
         ui->centralwidget->adjustSize();                    //ajusta la escena
@@ -83,7 +83,7 @@ void MainWindow::niveles(){
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
     }
-    if(x == 1){
+    if(n == 1){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);                  //declara la escena
         ui->centralwidget->adjustSize();                    //ajusta la escena
@@ -92,7 +92,7 @@ void MainWindow::niveles(){
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
     }
-    if(x == 2){
+    if(n == 2){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
@@ -102,7 +102,7 @@ void MainWindow::niveles(){
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
     }
-    if(x == 3){
+    if(n == 3){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
@@ -111,7 +111,7 @@ void MainWindow::niveles(){
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
     }
-    if(x == 9){
+    if(n == 9){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
@@ -125,13 +125,13 @@ void MainWindow::niveles(){
 
 void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bordes
 {
-    if (x == 1){
+    if (n == 1){
         if(b->get_posX()<(b->get_Radio())){     //colisión con el borde izquierdo
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;
         }
         if(b->get_posX()>h_limit-b->get_Radio()*2){//colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit, b->get_posY());
-            x=2;
+            n=2;
             b->set_vel(0,0, 60, 420);
             niveles();
         }
@@ -142,14 +142,14 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit));
         }
     }
-    if (x==2){
+    if (n==2){
 
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
         }
         if(b->get_posX()>h_limit-b->get_Radio()){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
-            x=3;
+            n=3;
             b->set_vel(0,0, 60, 620);
             niveles();
         }
@@ -160,7 +160,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
     }
-    if (x==3){
+    if (n==3){
 
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
@@ -176,7 +176,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
     }
-    if (x==9){
+    if (n==9){
 
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
@@ -198,7 +198,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(ainz1.size()>0 && ainz1.size()< 2){
         actualizaciones *b = ainz1.at(0)->getPlayer();       //conexión con la clase actualizaciones
-        if(x==1){
+        if(n==1){
             if (event->key() == Qt::Key_D ){        // con D e avanza
                 b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
@@ -210,14 +210,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Space){
+            if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
                 scene->addItem(mago);
             }
 
         }
-        if(x==2){
+        if(n==2){
             if (event->key() == Qt::Key_D ){        // con D e avanza
                 b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
@@ -229,14 +230,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Space){
+            if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
                 scene->addItem(mago);
             }
 
         }
-        if(x==3){
+        if(n==3){
             if (event->key() == Qt::Key_D ){        // con D e avanza
                 b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
@@ -247,6 +249,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
+            }
+            if (event->key() == Qt::Key_Z){
+
+                magia * mago = new magia();
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                scene->addItem(mago);
             }
         }
     }
@@ -254,7 +262,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     else if(ainz1.size()==2){
             actualizaciones *b = ainz1.at(0)->getPlayer();
             actualizaciones *c = ainz1.at(1)->getPlayer();
-            if(x==9){
+            if(n==9){
                 if (event->key() == Qt::Key_D ){
                     ainz1.at(0)->getPlayer()->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());
                 }
@@ -287,7 +295,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    x=9;
+    n=9;
     niveles();
     timer->start(6);
     if (ainz1.size() == 1){

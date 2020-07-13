@@ -22,7 +22,7 @@ void magia::move()
             return;
         }
     }
-    setPos(x()+50,y());
+    setPos(x()+5,y());
     if (pos().x() > 1150){
         scene()->removeItem(this);
         delete this;

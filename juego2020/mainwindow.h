@@ -38,7 +38,7 @@ private:
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo
-    int x = 0;
+    int n = 0;
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador
     QList<Jugador*> ainz1;   //lista con los cuerpos para mostrarlos.
