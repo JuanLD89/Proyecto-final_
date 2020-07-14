@@ -10,11 +10,11 @@ Jugador::Jugador(int x)
     float posx, posy, velx , vely ,r, mass, K, e;
 
     if (x==1){
-        setPixmap(QPixmap(":/imagen/albedochibi (1).png"));
+        setPixmap(QPixmap(":/imagen/momonga perfil.png"));
     }
 
     if (x==2){
-        setPixmap(QPixmap(":/imagen/shalltear.png"));
+        setPixmap(QPixmap(":/imagen/albedochibi (1).png"));
     }
     if (x==1){
         posx = 105;

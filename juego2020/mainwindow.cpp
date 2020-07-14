@@ -58,7 +58,7 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
 void MainWindow::on_pushButton_clicked()
 {
-    n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
+    n = 4;                              //una vez se pulse el boton START iniciara en el nivel 1
     niveles();                          //invoca la función niveles
     timer->start(6);
     if(ainz1.size() < 1){
@@ -213,8 +213,65 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
         }
         if(b->get_posY()>v_limit){//choque con el borde inferior.
-            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
+            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit));
         }
+        if(b->get_posY() >=0 && b->get_posY() < 90 && b-> get_posX() >=  50 && b->get_posX()<1200){
+            b->set_vel(0,0, 590, 210);
+        }
+        if(b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 960 && b->get_posX() < 1035 ){
+            b->set_vel(0,0, 55, 420);
+        }
+        if(b->get_posY() >= 360 && b->get_posY() < 370 && b->get_posX() >= 710 && b->get_posX() < 799 ){
+            b->set_vel(0,0, 55, 420);
+        }
+        if (b->get_posY() >= 544 && b->get_posY() < 554 && b->get_posX() >= 398 && b->get_posX() < 505 ){
+            b->set_vel(0,0, 55, 420);
+        }
+        if(b->get_posY() >= 0 && b->get_posY() < 100 && b-> get_posX() >=  1000 && b->get_posX()<1250){
+            b->set_vel(0,0, 565, 165);
+        }
+        if(b->get_posY() >= 230 && b->get_posY() < 250 && b-> get_posX() >=  1180 && b->get_posX()<1190){
+            b->set_vel(0,0, 55, 620);
+        }
+        if (b->get_posY() >= 160 && b->get_posY() < 170 && b->get_posX() >= 555 && b->get_posX() < 765 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 105+b->get_Radio());
+        }
+        if (b->get_posY() >= 280 && b->get_posY() < 290 && b->get_posX() >= 60 && b->get_posX() < 403 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 225+b->get_Radio());
+        }
+        if (b->get_posY() >= 360 && b->get_posY() < 370 && b->get_posX() >= 415 && b->get_posX() < 771 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 305+b->get_Radio());
+        }
+        if (b->get_posY() >= 330 && b->get_posY() < 340 && b->get_posX() >= 855 && b->get_posX() < 1250 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 275+b->get_Radio());
+        }
+
+
+        if (b->get_posY() >= 140 && b->get_posY() < 150 && b->get_posX() >= 900 && b->get_posX() < 1000 ){
+            b->set_vel(0,0, 1100, 290);
+        }
+        if(b->get_posY() >= 330 && b->get_posY() < 430 && b-> get_posX() >=  1160 && b->get_posX()<1250){
+            b->set_vel(0,0, 70, 610);
+        }
+        if (b->get_posY() >= 595 && b->get_posY() < 605 && b->get_posX() >= 55 && b->get_posX() < 177 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 540+b->get_Radio());
+        }
+        if (b->get_posY() >= 544 && b->get_posY() < 554 && b->get_posX() >= 245 && b->get_posX() < 694 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 485+b->get_Radio());
+        }
+        if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 695 && b->get_posX() < 957 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
+        }
+        if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 1035 && b->get_posX() < 1250 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
+        }
+
+        if(b->get_posY() >= 480 && b-> get_posX() >=  1160 && b->get_posX()<1179){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 425+b->get_Radio());
+        }
+
+
+
     }
     if (n==9){
 
@@ -305,7 +362,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
             if (event->key() == Qt::Key_W){         //con W de salta
-                if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
+                if(b->get_posY() >= 0 && b->get_posY() < 70 || b->get_posY() == 170 || b->get_posY() == 480
+                    || (b->get_posY() == 290)|| b->get_posY() == 490 ||b->get_posY() == 370 ||b->get_posY() == 564 ||b->get_posY() == 605
+                    ||b->get_posY() == 495 ||b->get_posY() == 340 ||b->get_posY() >= 544 && b->get_posY() <= 554||b->get_posY() == 610){
+                  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
