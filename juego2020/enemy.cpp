@@ -3,8 +3,7 @@
 
 Enemy::Enemy()
 {
-    int random_number = rand() % 1100;
-    setPos(random_number,55);
+    setPos(999,55);
 
     setPixmap(QPixmap(":/imagen/enemigo.png"));
 
@@ -20,7 +19,11 @@ void Enemy::move()
 {
     //move enemy up
     setPos(x(),y()+5);
-    if(pos().y() > 590){
+    if(pos().y() > 630){
+        setPos(x()-5,y()-5);
+
+    }
+    if (pos().x() < 30){
         scene()->removeItem(this);
         delete this;
     }

@@ -152,7 +152,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()<((b->get_Radio()))){//colisión con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
         }
-        if(b->get_posY()>v_limit){//colisión con el borde inferior.
+        if(b->get_posY()>(v_limit)){//colisión con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit));
         }
     }
