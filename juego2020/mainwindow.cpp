@@ -123,6 +123,7 @@ void MainWindow::niveles(){
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
         scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/fo.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
     }
@@ -143,6 +144,7 @@ void MainWindow::enemigos11()
     Enemy * enemigo = new Enemy();
     scene->addItem(enemigo);
 }
+
 
 void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bordes
 {
@@ -326,12 +328,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 if (event->key() == Qt::Key_A ){
                     ainz1.at(0)->getPlayer()->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());
                 }
-                if (event->key() == Qt::Key_W){
-                    if(b->get_posY() >= 0 && b->get_posY() < 70 || b->get_posY() == 180 && b->get_posY() == 190
-                           || b->get_posY() >= 335 && b->get_posY() < 375 ){
-                        ainz1.at(0)->getPlayer()->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
-                    }
 
+
+                }
+                if (event->key() == Qt::Key_Z){
+
+                    magia * mago = new magia();
+                    mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                    scene->addItem(mago);
                 }
                 if (event->key() == Qt::Key_K ){
                     ainz1.at(1)->getPlayer()->set_vel(30,c->get_velY(),c->get_posX(), c->get_posY());
@@ -346,7 +350,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
                     }
                 }
-            }
+
+
     }
 }
 
