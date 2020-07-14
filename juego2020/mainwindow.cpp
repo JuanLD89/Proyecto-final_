@@ -91,6 +91,14 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/momonga1.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
+        /*QTimer *colien = new QTimer();
+        QObject :: connect(colien, SIGNAL(timeout()), ainz1[0], SLOT(colisionenemy()));
+        colien->start(50);*/
+        //ENEMIGOS
+        QTimer *timer3 = new QTimer();
+        QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
+        timer3->start(2000);
+
     }
     if(n == 2){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
@@ -121,6 +129,12 @@ void MainWindow::niveles(){
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
     }
+}
+
+void MainWindow::enemigos11()
+{
+    Enemy * enemigo = new Enemy();
+    scene->addItem(enemigo);
 }
 
 void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bordes

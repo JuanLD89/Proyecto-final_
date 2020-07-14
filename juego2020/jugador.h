@@ -21,6 +21,12 @@ public:
 private:
     actualizaciones* player;                     //declara un puntero player como conexión con la clase actualizaciones
     int player3;
+
+public slots:
+    void enemigos1();
+    void colisionenemy();
+
+
 };
 
 #endif // JUGADOR_H

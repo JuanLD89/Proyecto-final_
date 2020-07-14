@@ -1,19 +1,11 @@
 #include "enemy.h"
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QDebug>
-#include <QList>
-#include <stdlib.h>
-#include "jugador.h"
-#include "mainwindow.h"
 
 
-Enemy::Enemy(QGraphicsItem * parent): QObject(), QGraphicsPixmapItem()
+Enemy::Enemy()
 {
-    //set random posicion
     int random_number = rand() % 1100;
     setPos(random_number,55);
-    //draw the bullet
+
     setPixmap(QPixmap(":/imagen/enemigo.png"));
 
     //connect
