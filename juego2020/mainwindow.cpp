@@ -94,7 +94,6 @@ void MainWindow::niveles(){
         /*QTimer *colien = new QTimer();
         QObject :: connect(colien, SIGNAL(timeout()), ainz1[0], SLOT(colisionenemy()));
         colien->start(50);*/
-        //ENEMIGOS
         QTimer *timer3 = new QTimer();
         QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
         timer3->start(2000);
@@ -118,6 +117,14 @@ void MainWindow::niveles(){
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
+    }
+    if(n == 4){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
     }
     if(n == 9){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
@@ -181,7 +188,24 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posX()>h_limit-b->get_Radio()){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
+            n=4;
+            b->set_vel(0,0, 60, 520);
+            niveles();
+        }
+        if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
+            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
+        }
+        if(b->get_posY()>v_limit){//choque con el borde inferior.
+            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
+        }
+    }
+    if (n==4){
 
+        if(b->get_posX()<(b->get_Radio())){
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
+        }
+        if(b->get_posX()>h_limit-b->get_Radio()){
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -253,6 +277,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
         }
         if(n==3){
+            if (event->key() == Qt::Key_D ){        // con D e avanza
+                b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
+            }
+            if (event->key() == Qt::Key_A ){        //con A se retrocede
+                b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
+            }
+            if (event->key() == Qt::Key_W){         //con W de salta
+                if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
+                    b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
+                }
+            }
+            if (event->key() == Qt::Key_Z){
+
+                magia * mago = new magia();
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                scene->addItem(mago);
+            }
+        }
+        if(n==4){
             if (event->key() == Qt::Key_D ){        // con D e avanza
                 b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
