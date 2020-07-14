@@ -18,12 +18,12 @@ Enemy::Enemy()
 void Enemy::move()
 {
     //move enemy up
-    setPos(x(),y()+5);
-    if(pos().y() > 630){
-        setPos(x()-5,y()-5);
+    setPos(x(),y()+10);
+    if(pos().y() > 610){
+        setPos(x()-10,y()-10);
 
     }
-    if (pos().x() < 30){
+    if (pos().x() < 70){
         scene()->removeItem(this);
         delete this;
     }

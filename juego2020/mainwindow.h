@@ -27,6 +27,7 @@ private slots:
     void actualizar();           //actualiza la posicion dependiendo del timer para la colision
     void niveles();             //actualiza el nivel en el que se encuentra el jugador
     void enemigos11();
+    void contadorparaenemigos();
 
     void on_pushButton_clicked();       //funcial para la aaccion que el prograama tomará al pulsar START
 

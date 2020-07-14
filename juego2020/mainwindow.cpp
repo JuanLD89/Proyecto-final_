@@ -54,11 +54,27 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         bordercollision(ainz1.at(i)->getPlayer());//actualiza el choque con el borde
     }
 }
+void MainWindow::enemigos11()
+{
+    if(n==2){
+        Enemy * enemigo = new Enemy();
+        scene->addItem(enemigo);
+    }
+}
+
+void MainWindow::contadorparaenemigos()
+{
+    if (n==2){
+        QTimer *timer3 = new QTimer();
+        QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
+        timer3->start(3000);
+    }
+}
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    n = 4;                              //una vez se pulse el boton START iniciara en el nivel 1
+    n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
     niveles();                          //invoca la función niveles
     timer->start(6);
     if(ainz1.size() < 1){
@@ -91,12 +107,7 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/momonga1.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
-        /*QTimer *colien = new QTimer();
-        QObject :: connect(colien, SIGNAL(timeout()), ainz1[0], SLOT(colisionenemy()));
-        colien->start(50);*/
-        QTimer *timer3 = new QTimer();
-        QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
-        timer3->start(2000);
+
 
     }
     if(n == 2){
@@ -107,13 +118,16 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
-
+        if (n==2){
+            contadorparaenemigos();
+        }
     }
     if(n == 3){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
         scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga2.png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
@@ -139,11 +153,7 @@ void MainWindow::niveles(){
     }
 }
 
-void MainWindow::enemigos11()
-{
-    Enemy * enemigo = new Enemy();
-    scene->addItem(enemigo);
-}
+
 
 
 void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bordes
@@ -173,7 +183,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posX()>h_limit-b->get_Radio()){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
             n=3;
-            b->set_vel(0,0, 60, 620);
+            b->set_vel(0,0, 1150, 620);
             niveles();
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
@@ -187,12 +197,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
 
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
-        }
-        if(b->get_posX()>h_limit-b->get_Radio()){
-            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
             n=4;
             b->set_vel(0,0, 60, 520);
             niveles();
+        }
+        if(b->get_posX()>h_limit-b->get_Radio()){
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
+
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -310,7 +321,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
             }
 
@@ -330,7 +341,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
             }
 
@@ -350,7 +361,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
             }
         }
@@ -372,7 +383,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_Z){
 
                 magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
             }
         }
