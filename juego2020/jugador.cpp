@@ -18,7 +18,7 @@ Jugador::Jugador(int x)
     }
     if (x==1){
         posx = 105;
-        posy = 185;
+        posy = 30;
         r = 65;
         mass = 50;
         velx = 0;
@@ -30,7 +30,7 @@ Jugador::Jugador(int x)
     }
     if (x==2){
         posx = 1040;
-        posy = 185;
+        posy = 30;
         r = 65;
         mass = 50;
         velx = 0;

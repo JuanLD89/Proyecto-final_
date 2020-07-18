@@ -23,10 +23,25 @@ void magia::move()
             delete this;
             return;
         }
+        for (int i = 0, n = colliding_items.size();i<n;i++) {
+            if(typeid(*(colliding_items[i])) == typeid(Anillo)){
+
+                    scene()->removeItem(colliding_items[i]);
+                    delete colliding_items[i];
+
+                scene()->removeItem(this);
+                delete this;
+                return;
+            }
+        }
     }
+
+
+
     setPos(x()+10,y());
     if (pos().x() > 1150){
         scene()->removeItem(this);
         delete this;
     }
+
 }

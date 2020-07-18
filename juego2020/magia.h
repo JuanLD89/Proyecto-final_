@@ -4,6 +4,8 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QTimer>
+#include "anillo.h"
+#include "mainwindow.h"
 
 class magia: public QObject, public QGraphicsPixmapItem
 {

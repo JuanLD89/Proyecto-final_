@@ -10,6 +10,7 @@
 #include "actualizaciones.h"
 #include "jugador.h"
 #include <QList>
+#include "anillo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,7 +22,11 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();                      //destructor
+    ~MainWindow();                      //destruct
+
+
+    Anillo *anillo1, *anillo2, *anillo3;
+    QList<Anillo*> anillos;
 
 private slots:
     void actualizar();           //actualiza la posicion dependiendo del timer para la colision

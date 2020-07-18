@@ -118,6 +118,10 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        anillo1= new Anillo(910,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
+        anillo2= new Anillo(910,305,50,50);scene->addItem(anillo2);anillos.push_back(anillo2);
+        anillo3= new Anillo(910,480,50,50);scene->addItem(anillo3);anillos.push_back(anillo3);
+
         if (n==2){
             contadorparaenemigos();
         }
@@ -165,7 +169,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posX()>h_limit-b->get_Radio()*2){//colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit, b->get_posY());
             n=2;
-            b->set_vel(0,0, 60, 420);
+            b->set_vel(0,0, 60, 20);
             niveles();
         }
         if(b->get_posY()<((b->get_Radio()))){//colisión con el borde superior.
@@ -191,6 +195,15 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
+        }
+        if (b->get_posY() >= 150 && b->get_posY() < 160 && b->get_posX() >= 330 && b->get_posX() < 670 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 95+b->get_Radio());
+        }
+        if (b->get_posY() >= 282 && b->get_posY() < 292 && b->get_posX() >= 30 && b->get_posX() < 312 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 227+b->get_Radio());
+        }
+        if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
     }
     if (n==3){
@@ -334,7 +347,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
             if (event->key() == Qt::Key_W){         //con W de salta
-                if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
+                if(b->get_posY() >= 0 && b->get_posY() < 70|| b->get_posY() == 160|| b->get_posY() == 292|| b->get_posY() == 400){  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
