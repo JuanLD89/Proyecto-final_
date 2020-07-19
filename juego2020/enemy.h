@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QGraphicsScene>
+#include <QLCDNumber>
 
 class Enemy:public QObject, public QGraphicsPixmapItem
 {

@@ -15,6 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLCDNumber>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -30,6 +32,10 @@ public:
     QGraphicsView *graphicsView;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QLCDNumber *lcdNumber;
+    QLCDNumber *lcdNumber_2;
+    QLabel *label;
+    QLabel *label_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -49,6 +55,18 @@ public:
         pushButton_2 = new QPushButton(centralwidget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
         pushButton_2->setGeometry(QRect(1220, 70, 75, 41));
+        lcdNumber = new QLCDNumber(centralwidget);
+        lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
+        lcdNumber->setGeometry(QRect(1220, 150, 71, 31));
+        lcdNumber_2 = new QLCDNumber(centralwidget);
+        lcdNumber_2->setObjectName(QStringLiteral("lcdNumber_2"));
+        lcdNumber_2->setGeometry(QRect(1220, 230, 71, 31));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(1230, 133, 47, 20));
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(1230, 213, 47, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -68,6 +86,8 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "START", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("MainWindow", "Multi-player", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Vidas", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "Puntaje", Q_NULLPTR));
     } // retranslateUi
 
 };

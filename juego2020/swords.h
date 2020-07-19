@@ -1,5 +1,5 @@
-#ifndef SALUD_H
-#define SALUD_H
+#ifndef SWORDS_H
+#define SWORDS_H
 
 #include <QGraphicsPixmapItem>
 #include <QObject>
@@ -9,7 +9,7 @@
 #include <QPixmap>
 #include <QPainter>
 
-class salud: public QGraphicsItem
+class swords: public QGraphicsItem
 
 {
     int x;
@@ -19,8 +19,8 @@ class salud: public QGraphicsItem
 
 
 public:
-    salud();
-    salud(int x_,int y_, int w_, int h_);
+    swords();
+    swords(int x_,int y_, int w_, int h_);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR);
     int getX() const;
@@ -29,4 +29,6 @@ public:
     void setY(int value);
 };
 
-#endif // SALUD_H
+
+
+#endif // SWORDS_H

@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->resize(scene->width(),scene->height());           //declara las dimensiones
     this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
 
+    this->ui->lcdNumber->display(vida_);
+    this->ui->lcdNumber_2->display(puntaje_);
 
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
@@ -44,6 +46,7 @@ MainWindow::~MainWindow()               //destructor
     delete ui;
 }
 
+
 void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para la colision
 {
     actualizaciones *b;                 //declara un puntero b como conexión con la clase actualizaciones
@@ -52,14 +55,42 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
         ainz1.at(i)->actualizar(v_limit);//actualiza en player
         bordercollision(ainz1.at(i)->getPlayer());//actualiza el choque con el borde
+
+
     }
+    this->ui->lcdNumber->display(vida_);
+    if(vida_ < 1 && ainz1.size()==1){
+        n = 0;
+        niveles();
+        scene->removeItem(ainz1.back());
+        ainz1.removeAt(0);
+    }
+
+
+
+
+
+
+    this->ui->lcdNumber_2->display(puntaje_);
+    if(puntaje_ < 1 && ainz1.size()==1){
+        n = 0;
+        niveles();
+        scene->removeItem(ainz1.back());
+        ainz1.removeAt(0);
+    }
+
+
+
 }
 void MainWindow::enemigos11()
 {
     if(n==2){
         Enemy * enemigo = new Enemy();
         scene->addItem(enemigo);
+
     }
+
+
 }
 
 void MainWindow::contadorparaenemigos()
@@ -121,6 +152,9 @@ void MainWindow::niveles(){
         anillo1= new Anillo(910,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
         anillo2= new Anillo(910,305,50,50);scene->addItem(anillo2);anillos.push_back(anillo2);
         anillo3= new Anillo(910,480,50,50);scene->addItem(anillo3);anillos.push_back(anillo3);
+        anillo4= new Anillo(200,140,50,50);scene->addItem(anillo4);anillos.push_back(anillo4);
+        cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);
+
 
         if (n==2){
             contadorparaenemigos();
@@ -144,6 +178,10 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/fo.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        sword1= new swords(610,500,50,50);scene->addItem(sword1);swordss.push_back(sword1);
+        cura1= new salud(1099,430,50,50);scene->addItem(cura1);curas.push_back(cura1);
+
+
     }
     if(n == 9){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
@@ -186,6 +224,8 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posX()>h_limit-b->get_Radio()){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
+            scene->removeItem(cura);
+            curas.removeOne(cura);
             n=3;
             b->set_vel(0,0, 1150, 620);
             niveles();
@@ -198,6 +238,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if (b->get_posY() >= 150 && b->get_posY() < 160 && b->get_posX() >= 330 && b->get_posX() < 670 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 95+b->get_Radio());
+            //puntaje_+=1;
         }
         if (b->get_posY() >= 282 && b->get_posY() < 292 && b->get_posX() >= 30 && b->get_posX() < 312 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 227+b->get_Radio());
@@ -205,6 +246,10 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
+        if (magia().getcolision()==true){
+            puntaje_+=1;
+        }
+
     }
     if (n==3){
 
@@ -336,6 +381,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
+
             }
 
         }
@@ -356,7 +402,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
+
             }
+
 
         }
         if(n==3){
@@ -376,6 +424,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
+
             }
         }
         if(n==4){

@@ -19,7 +19,7 @@ public:
     actualizaciones* getPlayer();               //declara un puntero getplayer como conexión con la clase actualizaciones
 
 private:
-    actualizaciones* player;                     //declara un puntero player como conexión con la clase actualizaciones
+    actualizaciones* player;                     //declara un puntero player como conexión con la clase actualizacionesz
     int player3;
 
 

@@ -11,6 +11,10 @@
 #include "jugador.h"
 #include <QList>
 #include "anillo.h"
+#include <QLCDNumber>
+#include "swords.h"
+#include "salud.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,8 +29,15 @@ public:
     ~MainWindow();                      //destruct
 
 
-    Anillo *anillo1, *anillo2, *anillo3;
+    Anillo *anillo1, *anillo2, *anillo3, *anillo4;
     QList<Anillo*> anillos;
+    swords *sword1;
+    QList<swords*> swordss;
+    salud *cura, *cura1, *cura2;
+    QList<salud*> curas;
+
+    void aunmentar();
+
 
 private slots:
     void actualizar();           //actualiza la posicion dependiendo del timer para la colision
@@ -45,6 +56,8 @@ private:
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo
+    int vida_=6;
+    int puntaje_=1;
     int n = 0;
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador
