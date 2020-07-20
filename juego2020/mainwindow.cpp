@@ -66,11 +66,6 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         ainz1.removeAt(0);
     }
 
-
-
-
-
-
     this->ui->lcdNumber_2->display(puntaje_);
     if(puntaje_ < 1 && ainz1.size()==1){
         n = 0;
@@ -78,7 +73,23 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         scene->removeItem(ainz1.back());
         ainz1.removeAt(0);
     }
+    if (vida_==0){
 
+        scene->removeItem(cura1);
+        curas.removeOne(cura1);
+        scene->removeItem(anillo1);
+        anillos.removeOne(anillo1);
+        scene->removeItem(sword1);
+        swordss.removeOne(sword1);
+        scene->removeItem(uno);
+        objetivoss.removeOne(uno);
+        scene->removeItem(dos);
+        objetivoss.removeOne(dos);
+        scene->removeItem(tres);
+        objetivoss.removeOne(tres);
+        n=8;
+        niveles();
+    }
 
 
 }
@@ -181,6 +192,26 @@ void MainWindow::niveles(){
         sword1= new swords(610,500,50,50);scene->addItem(sword1);swordss.push_back(sword1);
         cura1= new salud(1099,430,50,50);scene->addItem(cura1);curas.push_back(cura1);
 
+
+    }
+    if(n == 5){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+
+    }
+    if(n == 8){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/castigo.png"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
 
     }
     if(n == 9){
@@ -338,6 +369,10 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 1035 && b->get_posX() < 1250 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
+            scene->removeItem(cura1);
+            curas.removeOne(cura1);
+            n=5;
+            niveles();
         }
 
         if(b->get_posY() >= 480 && b-> get_posX() >=  1160 && b->get_posX()<1179){
