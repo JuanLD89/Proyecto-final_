@@ -23,6 +23,7 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
+    int i;
     Q_OBJECT
 
 public:
@@ -42,6 +43,7 @@ public:
     QList<salud*> curas;
 
     void aunmnmentar();
+    void decrementar();
 
 
 private slots:

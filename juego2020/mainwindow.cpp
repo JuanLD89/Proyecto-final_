@@ -58,6 +58,7 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
 
     }
+
     this->ui->lcdNumber->display(vida_);
     if(vida_ < 1 && ainz1.size()==1){
         n = 0;
@@ -160,7 +161,7 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
-        anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
+
         uno= new objetivos(910,140,50,50);scene->addItem(uno);objetivoss.push_back(uno);
         dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);
         tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);
@@ -169,6 +170,7 @@ void MainWindow::niveles(){
 
         if (n==2){
             contadorparaenemigos();
+
         }
     }
     if(n == 3){
@@ -283,6 +285,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
                 b->set_vel(0,0, 1150, 620);
                 niveles();
             }
+
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -300,6 +303,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
+        if (n==2){
+            if (puntaje_==4){
+                anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
+                puntaje_+=1;
+            }
+        }
+
 
     }
     if (n==3){
@@ -458,7 +468,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Z){
+            if (event->key() == Qt::Key_S){
 
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
@@ -479,7 +489,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Z){
+            if (event->key() == Qt::Key_S){
 
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
@@ -489,7 +499,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             recoger();
             aumentar();
             aunmnmentar();
-
+            decrementar();
 
         }
         if(n==3){
@@ -504,7 +514,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Z){
+            if (event->key() == Qt::Key_S){
 
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
@@ -527,7 +537,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_Z){
+            if (event->key() == Qt::Key_S){
 
                 magia * mago = new magia();
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
@@ -549,6 +559,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
                 }
             }
+            if (event->key() == Qt::Key_S){
+
+                magia * mago = new magia();
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
+                scene->addItem(mago);
+            }
         }
     }
 
@@ -566,7 +582,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 
                 }
-                if (event->key() == Qt::Key_Z){
+                if (event->key() == Qt::Key_S){
 
                     magia * mago = new magia();
                     mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
@@ -658,6 +674,28 @@ void MainWindow::aunmnmentar()
     int p=stoi(datos);
      puntaje_+=p;
      magia().getcolision(0);
+}
+
+void MainWindow::decrementar()
+{
+    /*string datos;
+    ifstream registro;
+    registro.open("../juego2020/Nuevo documento de texto (3).txt", ios::in);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    //while (registro.good()){
+        char tem=registro.get();
+        //if (registro.good()){
+                    datos+=tem;
+          //      }
+    //}
+    //registro.close();
+    int v=stoi(datos);
+     vida_-=v;
+     Enemy().getenemy(0);*/
+    if (Enemy().getenemy()==true){
+        //vida_-=1;
+    }
 }
 
 void MainWindow::on_pushButton_3_clicked()

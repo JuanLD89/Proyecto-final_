@@ -40,7 +40,7 @@ void magia::move()
 
 
    // return false;
-    setPos(x()+10,y());
+    setPos(x()+20,y());
     if (pos().x() > 1050){
         scene()->removeItem(this);
         delete this;

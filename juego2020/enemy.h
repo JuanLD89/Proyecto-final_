@@ -10,9 +10,11 @@
 
 class Enemy:public QObject, public QGraphicsPixmapItem
 {
+    int vida;
     Q_OBJECT
 public:
     Enemy();
+    bool getenemy();
 
 public slots:
     void move();
