@@ -30,6 +30,7 @@ public:
     void recoger();
     void aumentar();
 
+
     objetivos *uno,*dos,*tres;
     QList<objetivos*> objetivoss;
     Anillo *anillo1;

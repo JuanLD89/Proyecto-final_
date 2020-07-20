@@ -199,6 +199,27 @@ void MainWindow::niveles(){
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
         scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+
+
+    }
+    if(n == 6){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+
+    }
+    if(n == 7){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
         scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
@@ -255,11 +276,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posX()>h_limit-b->get_Radio()){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
-            scene->removeItem(cura);
-            curas.removeOne(cura);
-            n=3;
-            b->set_vel(0,0, 1150, 620);
-            niveles();
+            if (puntaje_>=101){
+                scene->removeItem(cura);
+                curas.removeOne(cura);
+                n=3;
+                b->set_vel(0,0, 1150, 620);
+                niveles();
+            }
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -369,10 +392,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 1035 && b->get_posX() < 1250 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
-            scene->removeItem(cura1);
-            curas.removeOne(cura1);
-            n=5;
-            niveles();
+            if (puntaje_>=201){
+                scene->removeItem(cura1);
+                curas.removeOne(cura1);
+                b->set_vel(0,0, 60, 20);
+                n=5;
+                niveles();
+            }
         }
 
         if(b->get_posY() >= 480 && b-> get_posX() >=  1160 && b->get_posX()<1179){
@@ -381,6 +407,22 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
 
 
 
+    }
+    if (n == 5){
+        if(b->get_posX()<(b->get_Radio())){
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
+        }
+        if(b->get_posX()>h_limit-b->get_Radio()){//posicion con el borde derecho.
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-(b->get_Radio()), b->get_posY());
+            n=6;
+            niveles();
+        }
+        if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
+            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
+        }
+        if(b->get_posY()>v_limit){//choque con el borde inferior.
+            b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit));
+        }
     }
     if (n==9){
 
@@ -494,7 +536,21 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             recoger();
             aumentar();
         }
+        if(n==5){
+            if (event->key() == Qt::Key_D ){
+                b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());
+            }
+            if (event->key() == Qt::Key_A ){
+                b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());
+            }
+            if (event->key() == Qt::Key_W){
+                if(b->get_posY() >= 0 && b->get_posY() < 70 ){
+                    b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
+                }
+            }
+        }
     }
+
 
     else if(ainz1.size()==2){
             actualizaciones *b = ainz1.at(0)->getPlayer();
