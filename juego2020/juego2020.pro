@@ -24,6 +24,7 @@ SOURCES += \
     magia.cpp \
     main.cpp \
     mainwindow.cpp \
+    objetivos.cpp \
     salud.cpp \
     swords.cpp
 
@@ -35,6 +36,7 @@ HEADERS += \
     jugador.h \
     magia.h \
     mainwindow.h \
+    objetivos.h \
     salud.h \
     swords.h
 

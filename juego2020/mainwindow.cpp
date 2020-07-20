@@ -149,10 +149,10 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
-        anillo1= new Anillo(910,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
-        anillo2= new Anillo(910,305,50,50);scene->addItem(anillo2);anillos.push_back(anillo2);
-        anillo3= new Anillo(910,480,50,50);scene->addItem(anillo3);anillos.push_back(anillo3);
-        anillo4= new Anillo(200,140,50,50);scene->addItem(anillo4);anillos.push_back(anillo4);
+        anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
+        uno= new objetivos(910,140,50,50);scene->addItem(uno);objetivoss.push_back(uno);
+        dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);
+        tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);
         cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);
 
 
@@ -246,9 +246,6 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
-        if (magia().getcolision()==true){
-            puntaje_+=1;
-        }
 
     }
     if (n==3){
@@ -286,15 +283,23 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posY() >=0 && b->get_posY() < 90 && b-> get_posX() >=  50 && b->get_posX()<1200){
             b->set_vel(0,0, 590, 210);
+            vida_-=1;
+
         }
         if(b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 960 && b->get_posX() < 1035 ){
             b->set_vel(0,0, 55, 420);
+            vida_-=1;
+
         }
         if(b->get_posY() >= 360 && b->get_posY() < 370 && b->get_posX() >= 710 && b->get_posX() < 799 ){
             b->set_vel(0,0, 55, 420);
+            vida_-=1;
+
         }
         if (b->get_posY() >= 544 && b->get_posY() < 554 && b->get_posX() >= 398 && b->get_posX() < 505 ){
             b->set_vel(0,0, 55, 420);
+            vida_-=1;
+
         }
         if(b->get_posY() >= 0 && b->get_posY() < 100 && b-> get_posX() >=  1000 && b->get_posX()<1250){
             b->set_vel(0,0, 565, 165);
@@ -404,6 +409,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 scene->addItem(mago);
 
             }
+            recoger();
+            aumentar();
 
 
         }
@@ -448,6 +455,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                 scene->addItem(mago);
             }
+
+            recoger();
+            aumentar();
         }
     }
 
@@ -501,6 +511,39 @@ void MainWindow::on_pushButton_2_clicked()
     else if(ainz1.size() == 2){
         scene->removeItem(ainz1.back());
         ainz1.removeAt(1);
+    }
+
+}
+void MainWindow::recoger()
+{
+    QList<Anillo*>::iterator i;
+    for(i=anillos.begin();i!=anillos.end();i++){
+        if(ainz1[0]->collidesWithItem(*i)){
+                scene->removeItem(*i);
+                anillos.removeOne(*i);
+                puntaje_+=100;
+        }
+    }
+
+    QList<swords*>::iterator ii;
+    for(ii=swordss.begin();ii!=swordss.end();ii++){
+        if(ainz1[0]->collidesWithItem(*ii)){
+                scene->removeItem(*ii);
+                swordss.removeOne(*ii);
+                puntaje_+=100;
+        }
+    }
+}
+
+void MainWindow::aumentar()
+{
+    QList<salud*>::iterator s;
+    for(s=curas.begin();s!=curas.end();s++){
+        if(ainz1[0]->collidesWithItem(*s)){
+                scene->removeItem(*s);
+                curas.removeOne(*s);
+                vida_+=1;
+        }
     }
 
 }

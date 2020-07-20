@@ -14,7 +14,7 @@
 #include <QLCDNumber>
 #include "swords.h"
 #include "salud.h"
-
+#include "objetivos.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,9 +27,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();                      //destruct
+    void recoger();
+    void aumentar();
 
-
-    Anillo *anillo1, *anillo2, *anillo3, *anillo4;
+    objetivos *uno,*dos,*tres;
+    QList<objetivos*> objetivoss;
+    Anillo *anillo1;
     QList<Anillo*> anillos;
     swords *sword1;
     QList<swords*> swordss;
