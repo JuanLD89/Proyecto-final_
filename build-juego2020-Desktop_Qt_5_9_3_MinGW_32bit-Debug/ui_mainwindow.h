@@ -36,6 +36,7 @@ public:
     QLCDNumber *lcdNumber_2;
     QLabel *label;
     QLabel *label_2;
+    QPushButton *pushButton_3;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -67,6 +68,9 @@ public:
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(1230, 213, 47, 20));
+        pushButton_3 = new QPushButton(centralwidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setGeometry(QRect(1220, 290, 75, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -88,6 +92,7 @@ public:
         pushButton_2->setText(QApplication::translate("MainWindow", "Multi-player", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "Vidas", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "Puntaje", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("MainWindow", "GUARDAR", Q_NULLPTR));
     } // retranslateUi
 
 };

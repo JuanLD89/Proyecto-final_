@@ -2,10 +2,19 @@
 #define GUARDAR_H
 
 
+#include <iostream>
+#include <string.h>
+#include <fstream>
+#include <stdlib.h>
+
+using namespace std;
+
 class guardar
 {
+    int level,lives,points;
 public:
-    guardar();
+    void agregar(int level,int lives,int points);
 };
+
 
 #endif // GUARDAR_H

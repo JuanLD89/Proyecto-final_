@@ -15,6 +15,7 @@
 #include "swords.h"
 #include "salud.h"
 #include "objetivos.h"
+#include "guardar.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -52,6 +53,8 @@ private slots:
     void on_pushButton_clicked();       //funcial para la aaccion que el prograama tomará al pulsar START
 
     void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::MainWindow *ui;

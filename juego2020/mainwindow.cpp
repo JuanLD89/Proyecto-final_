@@ -638,3 +638,11 @@ void MainWindow::aumentar()
     }
 
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    guardar save;
+
+    save.agregar(n,vida_,puntaje_);
+
+}
