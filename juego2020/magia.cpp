@@ -30,16 +30,15 @@ void magia::move()
         if(typeid(*(colliding_items[i])) == typeid(objetivos)){
             scene()->removeItem(colliding_items[i]);
             puntaje=1;
-            getcolision();
+            getcolision(puntaje);
             delete colliding_items[i];
             scene()->removeItem(this);
             delete this;
             return;
         }
-        else {
-            puntaje=0;
-        }
     }
+
+
    // return false;
     setPos(x()+10,y());
     if (pos().x() > 1050){
@@ -55,13 +54,12 @@ void magia::ven()
 
 }
 
-bool magia::getcolision()
+void magia::getcolision(int puntaje)
 {
-    if (puntaje==1){
-        return true;
-    }
-    else {
-        return false;
-    }
+    ofstream registro;
+    registro.open("../juego2020/Nuevo documento de texto (2).txt", ios::out);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    registro<<puntaje;
 }
 

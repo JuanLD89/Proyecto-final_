@@ -7,6 +7,10 @@
 #include "anillo.h"
 #include "mainwindow.h"
 #include "jugador.h"
+#include <iostream>
+#include <string.h>
+#include <fstream>
+#include <stdlib.h>
 
 class magia: public QObject, public QGraphicsPixmapItem
 {
@@ -14,11 +18,12 @@ class magia: public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     magia();
+    void getcolision(int puntaje);
+
 
 public slots:
     void move();
     void ven();
-    bool getcolision();
 
 
 };

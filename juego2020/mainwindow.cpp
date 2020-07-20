@@ -488,6 +488,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             }
             recoger();
             aumentar();
+            aunmnmentar();
 
 
         }
@@ -639,10 +640,82 @@ void MainWindow::aumentar()
 
 }
 
+void MainWindow::aunmnmentar()
+{
+
+    string datos;
+    ifstream registro;
+    registro.open("../juego2020/Nuevo documento de texto (2).txt", ios::in);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    while (registro.good()){
+        char tem=registro.get();
+        if (registro.good()){
+                    datos+=tem;
+                }
+    }
+    registro.close();
+    int p=stoi(datos);
+     puntaje_+=p;
+     magia().getcolision(0);
+}
+
 void MainWindow::on_pushButton_3_clicked()
 {
     guardar save;
 
     save.agregar(n,vida_,puntaje_);
 
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    string datos,user,saldo2,arr;
+    string arreglo[1][3];
+    int contador1=0,contador2=0;
+    ifstream registro;
+    registro.open("../juego2020/Nuevo documento de texto.txt", ios::in);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    while (registro.good()){
+        char tem=registro.get();
+        if (registro.good()){
+            if (tem!=' ' || tem!='\n'){
+                if (tem==' '){}
+                if (tem=='\n'){}
+                else{
+                    datos+=tem;
+                }
+                }
+            if (tem==' ' || tem=='\n'){
+                arreglo[contador2][contador1]=datos;
+                contador1=contador1+1;
+                if (tem=='\n'){
+                    contador2=contador2+1;
+                    contador1=0;
+                    }
+                datos="";
+                }
+
+            }
+    }
+    int a=stoi(arreglo[0][0]);
+    n=a;
+    int b=stoi(arreglo[0][1]);
+    vida_=b;
+    int c=stoi(arreglo[0][2]);
+    puntaje_=c;
+
+    niveles();
+    timer->start(6);
+    if(ainz1.size() < 1){
+        ainz1.push_back(new Jugador(1));
+
+        //viejita[0] -> setPos(50,-120);  //posición en el plano (x,y)
+        ainz1[0] -> actualizar(v_limit);
+        ainz1[0] -> setFlag(QGraphicsItem::ItemIsFocusable);
+        ainz1[0] -> setFocus();
+
+        scene -> addItem(ainz1[0]);
+    }
 }

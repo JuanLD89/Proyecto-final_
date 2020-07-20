@@ -17,6 +17,7 @@ public:
 
     void actualizar(float v_lim);               //actualiza las posiciones del jugador
     actualizaciones* getPlayer();               //declara un puntero getplayer como conexión con la clase actualizaciones
+    Jugador *player1;
 
 private:
     actualizaciones* player;                     //declara un puntero player como conexión con la clase actualizacionesz

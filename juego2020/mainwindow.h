@@ -41,7 +41,7 @@ public:
     salud *cura, *cura1, *cura2;
     QList<salud*> curas;
 
-    void aunmentar();
+    void aunmnmentar();
 
 
 private slots:
@@ -55,6 +55,8 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::MainWindow *ui;
