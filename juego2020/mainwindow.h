@@ -16,6 +16,9 @@
 #include "salud.h"
 #include "objetivos.h"
 #include "guardar.h"
+#include "trono.h"
+#include "registro.h"
+#include "iniciarse.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,8 +34,11 @@ public:
     ~MainWindow();                      //destruct
     void recoger();
     void aumentar();
+    int vida_=6;
 
 
+    trono *destino;
+    QList<trono*> tronos;
     objetivos *uno,*dos,*tres;
     QList<objetivos*> objetivoss;
     Anillo *anillo1;
@@ -60,6 +66,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_5_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
@@ -67,7 +75,6 @@ private:
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo
-    int vida_=6;
     int puntaje_=1;
     int n = 0;
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo

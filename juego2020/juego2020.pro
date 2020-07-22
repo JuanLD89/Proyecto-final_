@@ -20,28 +20,36 @@ SOURCES += \
     anillo.cpp \
     enemy.cpp \
     guardar.cpp \
+    iniciarse.cpp \
     jugador.cpp \
     magia.cpp \
     main.cpp \
     mainwindow.cpp \
     objetivos.cpp \
+    registro.cpp \
     salud.cpp \
-    swords.cpp
+    swords.cpp \
+    trono.cpp
 
 HEADERS += \
     actualizaciones.h \
     anillo.h \
     enemy.h \
     guardar.h \
+    iniciarse.h \
     jugador.h \
     magia.h \
     mainwindow.h \
     objetivos.h \
+    registro.h \
     salud.h \
-    swords.h
+    swords.h \
+    trono.h
 
 FORMS += \
-    mainwindow.ui
+    iniciarse.ui \
+    mainwindow.ui \
+    registro.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

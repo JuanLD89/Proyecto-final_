@@ -14,7 +14,7 @@ class Enemy:public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Enemy();
-    bool getenemy();
+    int getenemy();
 
 public slots:
     void move();

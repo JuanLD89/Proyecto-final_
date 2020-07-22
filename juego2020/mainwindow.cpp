@@ -74,6 +74,7 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         scene->removeItem(ainz1.back());
         ainz1.removeAt(0);
     }
+
     if (vida_==0){
 
         scene->removeItem(cura1);
@@ -117,6 +118,11 @@ void MainWindow::contadorparaenemigos()
 
 void MainWindow::on_pushButton_clicked()
 {
+    iniciarse ini;
+    iniciarse *inicio = new iniciarse();
+    inicio->show();
+
+
     n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
     niveles();                          //invoca la función niveles
     timer->start(6);
@@ -166,6 +172,7 @@ void MainWindow::niveles(){
         dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);
         tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);
         cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);
+        destino=new trono(50,600,50,50);scene->addItem(destino);tronos.push_back(destino);
 
 
         if (n==2){
@@ -309,6 +316,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
                 puntaje_+=1;
             }
         }
+
 
 
     }
@@ -499,7 +507,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             recoger();
             aumentar();
             aunmnmentar();
-            decrementar();
 
         }
         if(n==3){
@@ -678,24 +685,10 @@ void MainWindow::aunmnmentar()
 
 void MainWindow::decrementar()
 {
-    /*string datos;
-    ifstream registro;
-    registro.open("../juego2020/Nuevo documento de texto (3).txt", ios::in);
-    if (registro.fail())
-        cerr << "Error" << endl;
-    //while (registro.good()){
-        char tem=registro.get();
-        //if (registro.good()){
-                    datos+=tem;
-          //      }
-    //}
-    //registro.close();
-    int v=stoi(datos);
-     vida_-=v;
-     Enemy().getenemy(0);*/
-    if (Enemy().getenemy()==true){
-        //vida_-=1;
+    if (Enemy().pos().x() < 70){
+        vida_-=1;
     }
+
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -756,4 +749,10 @@ void MainWindow::on_pushButton_4_clicked()
 
         scene -> addItem(ainz1[0]);
     }
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    registro *regis = new registro();
+    regis->show();
 }

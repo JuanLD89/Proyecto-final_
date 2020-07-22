@@ -16,13 +16,16 @@ Enemy::Enemy()
 
 }
 
-bool Enemy::getenemy()
+int Enemy::getenemy()
 {
-    if (vida==1){
-        return true;
+    if (pos().x() < 70){
+        vida=1;
+        return vida;
+
     }
-    if (vida==0){
-        return false;
+    else{
+        vida = 0;
+        return vida;
     }
 
 }
@@ -37,14 +40,10 @@ void Enemy::move()
 
     }
     if (pos().x() < 70){
-        vida=1;
         scene()->removeItem(this);
         delete this;
+    }
 
-    }
-    else{
-        vida=0;
-    }
 
 
 }
