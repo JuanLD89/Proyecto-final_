@@ -40,8 +40,12 @@ void Enemy::move()
 
     }
     if (pos().x() < 70){
+        vida=1;
         scene()->removeItem(this);
         delete this;
+    }
+    else{
+        vida=0;
     }
 
 

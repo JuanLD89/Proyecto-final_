@@ -19,6 +19,11 @@
 #include "trono.h"
 #include "registro.h"
 #include "iniciarse.h"
+#include "ainz.h"
+#include "momonga.h"
+#include "cetro.h"
+#include "cetro1.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,9 +39,14 @@ public:
     ~MainWindow();                      //destruct
     void recoger();
     void aumentar();
-    int vida_=6;
-
-
+    cetro1 *cetro3;
+    QList<cetro1*> cetros1;
+    cetro *cetro2;
+    QList<cetro*> cetros;
+    momonga *momon1,*momon2,*momon3;
+    QList<momonga*> momon;
+    ainz *gown,*gown1,*gown2;
+    QList<ainz*> ooal;
     trono *destino;
     QList<trono*> tronos;
     objetivos *uno,*dos,*tres;
@@ -49,6 +59,7 @@ public:
     QList<salud*> curas;
 
     void aunmnmentar();
+    void aunmnmentar1();
     void decrementar();
 
 
@@ -68,6 +79,7 @@ private slots:
 
     void on_pushButton_5_clicked();
 
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
@@ -76,6 +88,8 @@ private:
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo
     int puntaje_=1;
+    int vida_=6;
+    int puntaje2_=1;
     int n = 0;
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador

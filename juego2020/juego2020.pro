@@ -3,6 +3,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+CONFIG += resources_big
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,7 +18,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     actualizaciones.cpp \
+    ainz.cpp \
     anillo.cpp \
+    cetro.cpp \
+    cetro1.cpp \
     enemy.cpp \
     guardar.cpp \
     iniciarse.cpp \
@@ -25,6 +29,7 @@ SOURCES += \
     magia.cpp \
     main.cpp \
     mainwindow.cpp \
+    momonga.cpp \
     objetivos.cpp \
     registro.cpp \
     salud.cpp \
@@ -33,13 +38,17 @@ SOURCES += \
 
 HEADERS += \
     actualizaciones.h \
+    ainz.h \
     anillo.h \
+    cetro.h \
+    cetro1.h \
     enemy.h \
     guardar.h \
     iniciarse.h \
     jugador.h \
     magia.h \
     mainwindow.h \
+    momonga.h \
     objetivos.h \
     registro.h \
     salud.h \
@@ -58,3 +67,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     imagenes.qrc
+
+DISTFILES +=

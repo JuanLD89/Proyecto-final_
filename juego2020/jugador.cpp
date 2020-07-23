@@ -14,7 +14,7 @@ Jugador::Jugador(int x)
     }
 
     if (x==2){
-        setPixmap(QPixmap(":/imagen/albedochibi (1).png"));
+        setPixmap(QPixmap(":/imagen/momogawar.png"));
     }
     if (x==1){
         posx = 105;

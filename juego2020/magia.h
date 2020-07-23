@@ -27,5 +27,19 @@ public slots:
 
 
 };
+class magia1: public QObject, public QGraphicsPixmapItem
+{
+    int puntaje;
+    Q_OBJECT
+public:
+    magia1();
+    void getcolision1(int puntaje);
+
+
+public slots:
+    void move1();
+
+
+};
 
 #endif // MAGIA_H

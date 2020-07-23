@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->ui->lcdNumber->display(vida_);
     this->ui->lcdNumber_2->display(puntaje_);
+    this->ui->lcdNumber_3->display(puntaje2_);
 
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
@@ -75,6 +76,15 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         ainz1.removeAt(0);
     }
 
+    this->ui->lcdNumber_3->display(puntaje2_);
+    if(puntaje2_ < 1 && ainz1.size()==2){
+        n = 9;
+        niveles();
+        scene->removeItem(ainz1.back());
+        ainz1.removeAt(1);
+    }
+
+
     if (vida_==0){
 
         scene->removeItem(cura1);
@@ -112,6 +122,9 @@ void MainWindow::contadorparaenemigos()
         QTimer *timer3 = new QTimer();
         QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
         timer3->start(3000);
+        if (Enemy().pos().x()<75){
+            vida_-=1;
+        }
     }
 }
 
@@ -249,11 +262,46 @@ void MainWindow::niveles(){
         ui->graphicsView->setScene(scene);
         ui->centralwidget->adjustSize();
         scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
+        scene->setBackgroundBrush(QPixmap(":/imagen/ultimateworld.png"));
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        gown= new ainz(290,140,50,50);scene->addItem(gown);ooal.push_back(gown);
+        gown1= new ainz(290,300,50,50);scene->addItem(gown1);ooal.push_back(gown1);
+        gown2= new ainz(290,480,50,50);scene->addItem(gown2);ooal.push_back(gown2);
 
+
+        momon1= new momonga(910,140,50,50);scene->addItem(momon1);momon.push_back(momon1);
+        momon2= new momonga(910,300,50,50);scene->addItem(momon2);momon.push_back(momon2);
+        momon3= new momonga(910,480,50,50);scene->addItem(momon3);momon.push_back(momon3);
     }
+    if (n==10){
+            scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+            ui->graphicsView->setScene(scene);
+            ui->centralwidget->adjustSize();
+            scene->addRect(scene->sceneRect());
+            scene->setBackgroundBrush(QPixmap(":/imagen/Fondo-blanco-pagina-01 (1).png"));
+            ui->graphicsView->resize(scene->width(),scene->height());
+            this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        }
+    if (n==11){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/battle.jpg"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+    }
+
+    /*if (n==12){
+        scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
+        ui->graphicsView->setScene(scene);
+        ui->centralwidget->adjustSize();
+        scene->addRect(scene->sceneRect());
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));
+        ui->graphicsView->resize(scene->width(),scene->height());
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+    }*/
 }
 
 
@@ -310,6 +358,9 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
+
+
+
         if (n==2){
             if (puntaje_==4){
                 anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
@@ -457,9 +508,50 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
-    }
-}
+        if (b->get_posY() >= 180 && b->get_posY() < 190 && b->get_posX() >= 455 && b->get_posX() < 725 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 125+b->get_Radio());
+        }
+        if (b->get_posY() >= 300 && b->get_posY() < 310 && b->get_posX() >= 455 && b->get_posX() < 725 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 245+b->get_Radio());
+        }
+        if (b->get_posY() >= 420 && b->get_posY() < 430 && b->get_posX() >= 455 && b->get_posX() < 725 ){
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 365+b->get_Radio());
+        }
+        if (n==9){
+            if (puntaje_==4){
+                cetro2= new cetro(1090,540,50,120);scene->addItem(cetro2);cetros.push_back(cetro2);
+                puntaje_-=1;
 
+            }
+            if (puntaje2_==4){
+                cetro3= new cetro1(110,540,50,120);scene->addItem(cetro3);cetros1.push_back(cetro3);
+                puntaje2_-=1;
+            }
+        }
+        recoger();
+        if (puntaje_==8 && puntaje2_==8){
+            b->set_vel(0,0, 60, 20);
+            n=3;
+            niveles();
+        }
+        if (puntaje_==8 || puntaje2_==8){
+            if (puntaje2_>puntaje_){
+                b->set_vel(0,0, 60, 20);
+                n=10;
+                niveles();
+                scene->removeItem(cetro3);
+                cetros1.removeOne(cetro3);
+            }
+            if (puntaje_>puntaje2_){
+                b->set_vel(0,0, 60, 20);
+                n=11;
+                niveles();
+                scene->removeItem(cetro2);
+                cetros.removeOne(cetro2);
+            }
+        }
+   }
+}
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(ainz1.size()>0 && ainz1.size()< 2){
@@ -586,13 +678,19 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 if (event->key() == Qt::Key_A ){
                     ainz1.at(0)->getPlayer()->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());
                 }
+                if (event->key() == Qt::Key_W){
+                    if (b->get_posY() >= 0 && b->get_posY() < 70 || b->get_posY() == 180 || b->get_posY() == 190
+                            || b->get_posY() == 310 || b->get_posY() == 430 ){
+                        ainz1.at(0)->getPlayer()->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
 
+                    }
+                }
 
                 }
                 if (event->key() == Qt::Key_S){
 
                     magia * mago = new magia();
-                    mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-50);
+                    mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
                     scene->addItem(mago);
                 }
                 if (event->key() == Qt::Key_K ){
@@ -602,14 +700,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     ainz1.at(1)->getPlayer()->set_vel(-30,c->get_velY(),c->get_posX(), c->get_posY());
                 }
                 if (event->key() == Qt::Key_U){
-                    if (c->get_posY() >= 0 && c->get_posY() < 70 || c->get_posY() == 180 && c->get_posY() == 190
-                            || c->get_posY() >= 335 && c->get_posY() < 375 ){
+                    if (c->get_posY() >= 0 && c->get_posY() < 70 || c->get_posY() == 180 || c->get_posY() == 190
+                            || c->get_posY() == 310 || c->get_posY() == 430 ){
                         ainz1.at(1)->getPlayer()->set_vel(c->get_velX(),50,c->get_posX(), c->get_posY());
 
                     }
                 }
+                if (event->key() == Qt::Key_J){
 
-
+                    magia1 * mago1 = new magia1();
+                    mago1->setPos(x()-ainz1[1]->getPlayer()->get_Radio()+ainz1[1]->getPlayer()->get_posX(),y()+v_limit-ainz1[1]->getPlayer()->get_posY()+ainz1[1]->getPlayer()->get_Radio()-70);
+                    scene->addItem(mago1);
+                }
+                aunmnmentar();
+                aunmnmentar1();
     }
 }
 
@@ -648,6 +752,22 @@ void MainWindow::recoger()
                 puntaje_+=100;
         }
     }
+    QList<cetro*>::iterator iii;
+    for(iii=cetros.begin();iii!=cetros.end();iii++){
+        if(ainz1[0]->collidesWithItem(*iii)){
+                scene->removeItem(*iii);
+                cetros.removeOne(*iii);
+                puntaje2_+=5;
+        }
+    }
+    QList<cetro1*>::iterator iiii;
+    for(iiii=cetros1.begin();iiii!=cetros1.end();iiii++){
+        if(ainz1[1]->collidesWithItem(*iiii)){
+                scene->removeItem(*iiii);
+                cetros1.removeOne(*iiii);
+                puntaje_+=5;
+        }
+    }
 }
 
 void MainWindow::aumentar()
@@ -660,6 +780,7 @@ void MainWindow::aumentar()
                 vida_+=1;
         }
     }
+
 
 }
 
@@ -681,6 +802,30 @@ void MainWindow::aunmnmentar()
     int p=stoi(datos);
      puntaje_+=p;
      magia().getcolision(0);
+}
+
+void MainWindow::aunmnmentar1()
+{
+    string datos;
+    ifstream registro;
+    registro.open("../juego2020/Nuevo documento de texto (4).txt", ios::in);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    while (registro.good()){
+        char tem=registro.get();
+        if (registro.good()){
+                    datos+=tem;
+                }
+    }
+    registro.close();
+    if (datos=="1"){
+        puntaje2_+=1;
+    }
+    if (datos=="0"){
+        puntaje2_+=0;
+    }
+
+     magia1().getcolision1(0);
 }
 
 void MainWindow::decrementar()

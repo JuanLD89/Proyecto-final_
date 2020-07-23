@@ -39,6 +39,8 @@ public:
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
+    QLCDNumber *lcdNumber_3;
+    QLabel *label_3;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -79,6 +81,12 @@ public:
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
         pushButton_5->setGeometry(QRect(1220, 420, 75, 41));
+        lcdNumber_3 = new QLCDNumber(centralwidget);
+        lcdNumber_3->setObjectName(QStringLiteral("lcdNumber_3"));
+        lcdNumber_3->setGeometry(QRect(1220, 500, 71, 31));
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(1220, 480, 71, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -103,6 +111,7 @@ public:
         pushButton_3->setText(QApplication::translate("MainWindow", "GUARDAR", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("MainWindow", "CARGAR", Q_NULLPTR));
         pushButton_5->setText(QApplication::translate("MainWindow", "REGISTRO", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Puntaje2(MP)", Q_NULLPTR));
     } // retranslateUi
 
 };
