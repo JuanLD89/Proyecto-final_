@@ -1,7 +1,6 @@
 #include "enemy.h"
 #include "mainwindow.h"
 
-
 Enemy::Enemy()
 {
     setPos(999,55);
@@ -16,18 +15,13 @@ Enemy::Enemy()
 
 }
 
-int Enemy::getenemy()
+void Enemy::getcolisionenemy(int vida)
 {
-    if (pos().x() < 70){
-        vida=1;
-        return vida;
-
-    }
-    else{
-        vida = 0;
-        return vida;
-    }
-
+    ofstream registro;
+    registro.open("../juego2020/enemigos.txt", ios::out);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    registro<<vida;
 }
 
 void Enemy::move()
@@ -41,13 +35,8 @@ void Enemy::move()
     }
     if (pos().x() < 70){
         vida=1;
+        getcolisionenemy(vida);
         scene()->removeItem(this);
         delete this;
     }
-    else{
-        vida=0;
-    }
-
-
-
 }

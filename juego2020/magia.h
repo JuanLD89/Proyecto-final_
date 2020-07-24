@@ -23,7 +23,6 @@ public:
 
 public slots:
     void move();
-    void ven();
 
 
 };

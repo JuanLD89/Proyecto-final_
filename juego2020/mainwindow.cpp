@@ -38,6 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
+
+    //connect(timer,SIGNAL(timeout()),this,SLOT(decrementar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
+    //timer -> start(3500);     //se declara cada cuanto tiempo actualiza la información
 }
 
 MainWindow::~MainWindow()               //destructor
@@ -59,6 +62,7 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
 
     }
+
 
     this->ui->lcdNumber->display(vida_);
     if(vida_ < 1 && ainz1.size()==1){
@@ -121,10 +125,7 @@ void MainWindow::contadorparaenemigos()
     if (n==2){
         QTimer *timer3 = new QTimer();
         QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
-        timer3->start(3000);
-        if (Enemy().pos().x()<75){
-            vida_-=1;
-        }
+        timer3->start(3500);
     }
 }
 
@@ -185,7 +186,6 @@ void MainWindow::niveles(){
         dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);
         tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);
         cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);
-        destino=new trono(50,600,50,50);scene->addItem(destino);tronos.push_back(destino);
 
 
         if (n==2){
@@ -360,16 +360,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
 
 
-
         if (n==2){
             if (puntaje_==4){
                 anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
                 puntaje_+=1;
             }
         }
-
-
-
+        //decrementar();
     }
     if (n==3){
 
@@ -599,6 +596,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             recoger();
             aumentar();
             aunmnmentar();
+            decrementar();
 
         }
         if(n==3){
@@ -720,6 +718,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::on_pushButton_2_clicked()
 {
     n=9;
+    vida_=5;
+    puntaje_=1;
     niveles();
     timer->start(6);
     if (ainz1.size() == 1){
@@ -830,9 +830,21 @@ void MainWindow::aunmnmentar1()
 
 void MainWindow::decrementar()
 {
-    if (Enemy().pos().x() < 70){
-        vida_-=1;
+    string datos;
+    ifstream registro;
+    registro.open("../juego2020/enemigos.txt", ios::in);
+    if (registro.fail())
+        cerr << "Error" << endl;
+    while (registro.good()){
+        char tem=registro.get();
+        if (registro.good()){
+                    datos+=tem;
+                }
     }
+    registro.close();
+    int v=stoi(datos);
+     vida_-=v;
+     Enemy().getcolisionenemy(0);
 
 }
 

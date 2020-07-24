@@ -9,9 +9,7 @@ magia::magia()
        QTimer *timer = new QTimer();
        connect(timer,SIGNAL(timeout()),this,SLOT(move()));
        timer->start(50);
-       QTimer *timerr = new QTimer();
-       connect(timerr,SIGNAL(timeout()),this,SLOT(ven()));
-       timerr->start(50);
+
 }
 void magia::move()
 {
@@ -56,12 +54,6 @@ void magia::move()
         scene()->removeItem(this);
         delete this;
     }
-
-}
-
-void magia::ven()
-{
-
 
 }
 
@@ -115,6 +107,5 @@ void magia1::move1()
         delete this;
     }
 }
-
 
 
