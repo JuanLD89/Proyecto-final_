@@ -31,6 +31,7 @@ SOURCES += \
     mainwindow.cpp \
     momonga.cpp \
     objetivos.cpp \
+    obstaculos.cpp \
     registro.cpp \
     salud.cpp \
     swords.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     mainwindow.h \
     momonga.h \
     objetivos.h \
+    obstaculos.h \
     registro.h \
     salud.h \
     swords.h \

@@ -39,6 +39,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
 
+    connect(timer,SIGNAL(timeout()),this,SLOT(MoverYColisionBolasDeFuego()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
+    timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
+
     //connect(timer,SIGNAL(timeout()),this,SLOT(decrementar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     //timer -> start(3500);     //se declara cada cuanto tiempo actualiza la información
 }
@@ -106,8 +109,6 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
         n=8;
         niveles();
     }
-
-
 }
 void MainWindow::enemigos11()
 {
@@ -132,9 +133,9 @@ void MainWindow::contadorparaenemigos()
 
 void MainWindow::on_pushButton_clicked()
 {
-    iniciarse ini;
-    iniciarse *inicio = new iniciarse();
-    inicio->show();
+    //iniciarse ini;
+    //iniciarse *inicio = new iniciarse();
+    //inicio->show();
 
 
     n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
@@ -170,7 +171,6 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/momonga1.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
-
 
     }
     if(n == 2){
@@ -266,13 +266,19 @@ void MainWindow::niveles(){
         ui->graphicsView->resize(scene->width(),scene->height());
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
         gown= new ainz(290,140,50,50);scene->addItem(gown);ooal.push_back(gown);
-        gown1= new ainz(290,300,50,50);scene->addItem(gown1);ooal.push_back(gown1);
+        //gown1= new ainz(290,300,50,50);scene->addItem(gown1);ooal.push_back(gown1);
         gown2= new ainz(290,480,50,50);scene->addItem(gown2);ooal.push_back(gown2);
 
 
         momon1= new momonga(910,140,50,50);scene->addItem(momon1);momon.push_back(momon1);
-        momon2= new momonga(910,300,50,50);scene->addItem(momon2);momon.push_back(momon2);
+        //momon2= new momonga(910,300,50,50);scene->addItem(momon2);momon.push_back(momon2);
         momon3= new momonga(910,480,50,50);scene->addItem(momon3);momon.push_back(momon3);
+
+        cetro2= new cetro(1090,540,50,120);scene->addItem(cetro2);cetros.push_back(cetro2);
+        cetro3= new cetro1(110,540,50,120);scene->addItem(cetro3);cetros1.push_back(cetro3);
+
+        generarObstaculos();
+
     }
     if (n==10){
             scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
@@ -386,6 +392,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
+
     }
     if (n==4){
 
@@ -514,30 +521,30 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 420 && b->get_posY() < 430 && b->get_posX() >= 455 && b->get_posX() < 725 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 365+b->get_Radio());
         }
-        if (n==9){
-            if (puntaje_==4){
-                cetro2= new cetro(1090,540,50,120);scene->addItem(cetro2);cetros.push_back(cetro2);
-                puntaje_-=1;
 
-            }
-            if (puntaje2_==4){
-                cetro3= new cetro1(110,540,50,120);scene->addItem(cetro3);cetros1.push_back(cetro3);
-                puntaje2_-=1;
-            }
+        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 820 && b->get_posX() < 995 ){
+            b->set_vel(0,0, 600, 20);
+        }
+        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 130 && b->get_posX() < 320 ){
+            b->set_vel(0,0, 600, 20);
         }
         recoger();
-        if (puntaje_==8 && puntaje2_==8){
+        if (puntaje_>=5 && puntaje2_>=5){
             b->set_vel(0,0, 60, 20);
             n=3;
             niveles();
         }
-        if (puntaje_==8 || puntaje2_==8){
+        if (puntaje_>=5 || puntaje2_>=5){
             if (puntaje2_>puntaje_){
                 b->set_vel(0,0, 60, 20);
                 n=10;
                 niveles();
                 scene->removeItem(cetro3);
                 cetros1.removeOne(cetro3);
+                scene->removeItem(bolasDeFuego.at(0));
+                scene->removeItem(bolasdefuego.at(0));
+                scene->removeItem(bolasdefuego1.at(0));
+                scene->removeItem(bolasdefuego1.at(1));
             }
             if (puntaje_>puntaje2_){
                 b->set_vel(0,0, 60, 20);
@@ -545,6 +552,10 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
                 niveles();
                 scene->removeItem(cetro2);
                 cetros.removeOne(cetro2);
+                scene->removeItem(bolasDeFuego.at(0));
+                scene->removeItem(bolasdefuego.at(0));
+                scene->removeItem(bolasdefuego1.at(0));
+                scene->removeItem(bolasdefuego1.at(1));
             }
         }
    }
@@ -718,7 +729,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::on_pushButton_2_clicked()
 {
     n=9;
-    vida_=5;
+    vida_=2;
     puntaje_=1;
     niveles();
     timer->start(6);
@@ -757,7 +768,7 @@ void MainWindow::recoger()
         if(ainz1[0]->collidesWithItem(*iii)){
                 scene->removeItem(*iii);
                 cetros.removeOne(*iii);
-                puntaje2_+=5;
+                puntaje_+=1;
         }
     }
     QList<cetro1*>::iterator iiii;
@@ -765,7 +776,7 @@ void MainWindow::recoger()
         if(ainz1[1]->collidesWithItem(*iiii)){
                 scene->removeItem(*iiii);
                 cetros1.removeOne(*iiii);
-                puntaje_+=5;
+                puntaje2_+=1;
         }
     }
 }
@@ -782,6 +793,35 @@ void MainWindow::aumentar()
     }
 
 
+}
+
+void MainWindow::generarObstaculos()
+{
+    bolaDeFuego1 = new obstaculos1(750,250,30,30);
+    bolaDeFuego1->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));
+    scene->addItem(bolaDeFuego1);
+
+    bolasdefuego.push_back(bolaDeFuego1);
+
+
+    bolaDeFuego6 = new obstaculos(430,250,30,30);
+    bolaDeFuego6->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));
+    scene->addItem(bolaDeFuego6);
+
+    bolasDeFuego.push_back(bolaDeFuego6);
+
+
+    bolaDeFuego2 = new obstaculos2(920,640,30,30);
+    bolaDeFuego2->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));
+    scene->addItem(bolaDeFuego2);
+
+    bolasdefuego1.push_back(bolaDeFuego2);
+
+    bolaDeFuego3 = new obstaculos2(250,640,30,30);
+    bolaDeFuego3->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));
+    scene->addItem(bolaDeFuego3);
+
+    bolasdefuego1.push_back(bolaDeFuego3);
 }
 
 void MainWindow::aunmnmentar()
@@ -848,6 +888,126 @@ void MainWindow::decrementar()
 
 }
 
+void MainWindow::MoverYColisionBolasDeFuego()
+{
+    for ( int i = 0 ; i< bolasDeFuego.size(); i++)
+    {
+        if( ainz1[0]->collidesWithItem(bolasDeFuego.at(i)))
+        {
+            scene->removeItem(bolasDeFuego.at(i));
+            scene->removeItem(bolasdefuego.at(i));
+            scene->removeItem(bolasdefuego1.at(0));
+            scene->removeItem(bolasdefuego1.at(1));
+            scene->removeItem(gown);
+            ooal.removeOne(gown);
+            scene->removeItem(gown1);
+            //ooal.removeOne(gown1);
+            //scene->removeItem(gown2);
+            ooal.removeOne(gown2);
+            scene->removeItem(momon1);
+            momon.removeOne(momon1);
+            //scene->removeItem(momon2);
+            //momon.removeOne(momon2);
+            scene->removeItem(momon3);
+            momon.removeOne(momon3);
+            scene->removeItem(cetro2);
+            cetros.removeOne(cetro2);
+            scene->removeItem(cetro3);
+            cetros1.removeOne(cetro3);
+
+            n=11;
+            niveles();
+        }
+        if( ainz1[1]->collidesWithItem(bolasDeFuego.at(i)))
+        {
+            scene->removeItem(bolasDeFuego.at(i));
+            scene->removeItem(bolasdefuego.at(i));
+            scene->removeItem(bolasdefuego1.at(0));
+            scene->removeItem(bolasdefuego1.at(1));
+            scene->removeItem(gown);
+            ooal.removeOne(gown);
+            //scene->removeItem(gown1);
+            //ooal.removeOne(gown1);
+            scene->removeItem(gown2);
+            ooal.removeOne(gown2);
+            scene->removeItem(momon1);
+            momon.removeOne(momon1);
+            //scene->removeItem(momon2);
+            //momon.removeOne(momon2);
+            scene->removeItem(momon3);
+            momon.removeOne(momon3);
+            scene->removeItem(cetro3);
+            cetros1.removeOne(cetro3);
+            scene->removeItem(cetro2);
+            cetros.removeOne(cetro2);
+            n=10;
+            niveles();
+        }
+
+        bolasDeFuego.at(i)->movimientoCircular();
+    }
+    for ( int i = 0 ; i< bolasdefuego.size(); i++)
+    {
+        if( ainz1[1]->collidesWithItem(bolasdefuego.at(i)))
+        {
+            scene->removeItem(bolasdefuego.at(i));
+            scene->removeItem(bolasDeFuego.at(i));
+            scene->removeItem(bolasdefuego1.at(0));
+            scene->removeItem(bolasdefuego1.at(1));
+            scene->removeItem(gown);
+            ooal.removeOne(gown);
+            //scene->removeItem(gown1);
+            //ooal.removeOne(gown1);
+            scene->removeItem(gown2);
+            ooal.removeOne(gown2);
+            scene->removeItem(momon1);
+            momon.removeOne(momon1);
+            //scene->removeItem(momon2);
+            //momon.removeOne(momon2);
+            scene->removeItem(momon3);
+            momon.removeOne(momon3);
+            scene->removeItem(cetro3);
+            cetros1.removeOne(cetro3);
+            scene->removeItem(cetro2);
+            cetros.removeOne(cetro2);
+            n=10;
+            niveles();
+        }
+        if( ainz1[0]->collidesWithItem(bolasdefuego.at(i)))
+        {
+            scene->removeItem(bolasdefuego.at(i));
+            scene->removeItem(bolasDeFuego.at(i));
+            scene->removeItem(bolasdefuego1.at(0));
+            scene->removeItem(bolasdefuego1.at(1));
+            scene->removeItem(gown);
+            ooal.removeOne(gown);
+            //scene->removeItem(gown1);
+            //ooal.removeOne(gown1);
+            scene->removeItem(gown2);
+            ooal.removeOne(gown2);
+            scene->removeItem(momon1);
+            momon.removeOne(momon1);
+            //scene->removeItem(momon2);
+            //momon.removeOne(momon2);
+            scene->removeItem(momon3);
+            momon.removeOne(momon3);
+            scene->removeItem(cetro3);
+            cetros1.removeOne(cetro3);
+            scene->removeItem(cetro2);
+            cetros.removeOne(cetro2);
+            n=11;
+            niveles();
+        }
+
+        bolasdefuego.at(i)->movimientoCircular1();
+    }
+
+    for ( int i = 0 ; i< bolasdefuego1.size(); i++)
+    {
+        bolasdefuego1.at(i)->movimientoCircular2();
+    }
+}
+
 void MainWindow::on_pushButton_3_clicked()
 {
     guardar save;
@@ -899,7 +1059,6 @@ void MainWindow::on_pushButton_4_clicked()
     if(ainz1.size() < 1){
         ainz1.push_back(new Jugador(1));
 
-        //viejita[0] -> setPos(50,-120);  //posición en el plano (x,y)
         ainz1[0] -> actualizar(v_limit);
         ainz1[0] -> setFlag(QGraphicsItem::ItemIsFocusable);
         ainz1[0] -> setFocus();

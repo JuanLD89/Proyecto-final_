@@ -3,7 +3,7 @@
 
 Enemy::Enemy()
 {
-    setPos(999,55);
+    setPos(1017,75);
 
     setPixmap(QPixmap(":/imagen/enemigo.png"));
 
@@ -33,7 +33,7 @@ void Enemy::move()
         setPos(x()-10,y()-10);
 
     }
-    if (pos().x() < 70){
+    if (pos().x() < 75){
         vida=1;
         getcolisionenemy(vida);
         scene()->removeItem(this);

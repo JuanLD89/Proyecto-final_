@@ -23,6 +23,7 @@
 #include "momonga.h"
 #include "cetro.h"
 #include "cetro1.h"
+#include "obstaculos.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -39,6 +40,8 @@ public:
     ~MainWindow();                      //destruct
     void recoger();
     void aumentar();
+    void generarObstaculos(void);
+
     cetro1 *cetro3;
     QList<cetro1*> cetros1;
     cetro *cetro2;
@@ -62,6 +65,9 @@ public:
     void aunmnmentar1();
     void decrementar();
 
+public slots:
+    void MoverYColisionBolasDeFuego();
+
 
 private slots:
     void actualizar();           //actualiza la posicion dependiendo del timer para la colision
@@ -84,6 +90,16 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
     QGraphicsScene *scene;      //scene que muestra los objetos animados
+    QList<obstaculos*> bolasDeFuego;
+
+    QList<obstaculos1*> bolasdefuego;
+    obstaculos1 *bolaDeFuego1;
+
+    QList<obstaculos2*> bolasdefuego1;
+    obstaculos2 *bolaDeFuego2, *bolaDeFuego3;
+
+    obstaculos *bolaDeFuego5;
+    obstaculos *bolaDeFuego6;
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo

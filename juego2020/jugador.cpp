@@ -17,7 +17,7 @@ Jugador::Jugador(int x)
         setPixmap(QPixmap(":/imagen/momogawar.png"));
     }
     if (x==1){
-        posx = 105;
+        posx = 550;
         posy = 30;
         r = 65;
         mass = 50;
@@ -29,7 +29,7 @@ Jugador::Jugador(int x)
 
     }
     if (x==2){
-        posx = 1040;
+        posx = 650;
         posy = 30;
         r = 65;
         mass = 50;
