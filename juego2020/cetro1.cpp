@@ -2,22 +2,22 @@
 
 int cetro1::getX() const
 {
-    return x;
+    return x;       //retorna la posicion en x
 }
 
 void cetro1::setX(int value)
 {
-    x = value;
+    x = value;          //asigna un nuevo valor a x
 }
 
 int cetro1::getY() const
 {
-    return y;
+    return y;       //retorna la posicion en y
 }
 
 void cetro1::setY(int value)
 {
-    y = value;
+    y = value;          //asigna un nuevo valor a y
 }
 
 cetro1::cetro1()
@@ -27,21 +27,21 @@ cetro1::cetro1()
 
 cetro1::cetro1(int x_, int y_, int w_, int h_)
 {
-    x=x_;
-    y=y_;
-    w=w_;
-    h=h_;
-   // setPos(x,-y);
+
+    x=x_;           //asigna un valor para la posición en x
+    y=y_;           //asigna un valor para la posición en y
+    w=w_;           //asigna un valor para la anchura
+    h=h_;           //asigna un valor para la altura
 }
 
 QRectF cetro1::boundingRect() const
 {
-    return QRect(x,y,w,h);
+    return QRect(x,y,w,h);      //retorna la figura con las posiciones y las mediciones
 }
 
 void cetro1::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QPixmap pixmap;
-    pixmap.load(":/imagen/cetroainz.png");
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    pixmap.load(":/imagen/cetroainz.png");      //carga la imagen
+    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());   //dibuja la imagen
 }

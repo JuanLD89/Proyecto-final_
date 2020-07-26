@@ -10,33 +10,33 @@ Jugador::Jugador(int x)
     float posx, posy, velx , vely ,r, mass, K, e;
 
     if (x==1){
-        setPixmap(QPixmap(":/imagen/momonga perfil.png"));
+        setPixmap(QPixmap(":/imagen/momonga perfil.png"));      //dibuja el personaje con respecto a una figura predeterminada
     }
 
     if (x==2){
-        setPixmap(QPixmap(":/imagen/momogawar.png"));
+        setPixmap(QPixmap(":/imagen/momogawar.png"));           //dibuja el personaje con respecto a una figura predeterminada
     }
     if (x==1){
-        posx = 550;
-        posy = 30;
-        r = 65;
-        mass = 50;
-        velx = 0;
-        vely = 0;
-        K = 0.08;
-        e = 0.2;
+        posx = 550;         //determina una posicion inicial en x
+        posy = 30;          //determina una posicion inicial en y
+        r = 65;             //da un radio al personaje
+        mass = 50;          //da una masa(peso) al personaje
+        velx = 0;           //determina una velocidad inicial en x
+        vely = 0;           //determina una velocidad inicial en y
+        K = 0.08;           //resistencia del aire
+        e = 0.2;            //coeficiente de restitucion.
         player = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);
 
     }
     if (x==2){
-        posx = 650;
-        posy = 30;
-        r = 65;
-        mass = 50;
-        velx = 0;
-        vely = 0;
-        K = 0.08;
-        e = 0.2;
+        posx = 650;         //determina una posicion inicial en x
+        posy = 30;          //determina una posicion inicial en y
+        r = 65;             //da un radio al personaje
+        mass = 50;          //da una masa(peso) al personaje
+        velx = 0;           //determina una velocidad inicial en x
+        vely = 0;           //determina una velocidad inicial en r
+        K = 0.08;           //resistencia del aire
+        e = 0.2;            //coeficiente de restitucion.
         player = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);
 
     }
