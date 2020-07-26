@@ -567,15 +567,15 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
 
 
         recoger();                                                                                          //se invoca la funcion recoger para recoger los objetos que exige el nivel para pasarlo
-        if (puntaje_>=5 && puntaje2_>=5){
+        if (puntaje_>=4 && puntaje2_>=4){
             b->set_vel(0,0, 60, 20);                                                                        //la posicion del pesonaje se actualiza
             n=3;                                                                                            //se actualiza el nivel
             niveles();                                                                                      //se invoca la función niveles
         }
-        if (puntaje_>=5 || puntaje2_>=5){
+        if (puntaje_>=4 || puntaje2_>=4){
             if (puntaje2_>puntaje_){
                 b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
-                n=10;                                                                                       //se actualiza el nivel
+                n=11;                                                                                       //se actualiza el nivel
                 niveles();                                                                                  //se invoca la función niveles
                 scene->removeItem(cetro3);                                                                  //remueve cetro3 de la escena
                 cetros1.removeOne(cetro3);                                                                  //remueve cetro3 de la lista
@@ -586,7 +586,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             }
             if (puntaje_>puntaje2_){
                 b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
-                n=11;                                                                                       //se actualiza el nivel
+                n=10;                                                                                       //se actualiza el nivel
                 niveles();                                                                                  //se invoca la función niveles
                 scene->removeItem(cetro2);                                                                  //remueve cetro2 de la escena
                 cetros.removeOne(cetro2);                                                                   //remueve cetro2 de la lista
@@ -931,8 +931,8 @@ void MainWindow::MoverYColisionBolasDeFuego()
     {
         if( ainz1[0]->collidesWithItem(bolasDeFuego.at(i)))         //si hay colision entre el personaje 1 y la bola de fuego
         {
-            scene->removeItem(bolasDeFuego.at(i));                  //se elimina una de lasbolas de fuego de multiplayer
-            scene->removeItem(bolasdefuego.at(i));                  //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasDeFuego.at(0));                  //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego.at(0));                  //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(bolasdefuego1.at(0));                 //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(bolasdefuego1.at(1));                 //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(gown);                                //remueve uno de los objetivos en multijugador de la escena
@@ -1012,8 +1012,8 @@ void MainWindow::MoverYColisionBolasDeFuego()
         }
         if( ainz1[0]->collidesWithItem(bolasdefuego.at(i)))               //si hay colision entre el personaje 1 y la bola de fuego
         {
-            scene->removeItem(bolasdefuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
-            scene->removeItem(bolasDeFuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego.at(0));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasDeFuego.at(0));                      //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(bolasdefuego1.at(0));                     //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(bolasdefuego1.at(1));                     //se elimina una de lasbolas de fuego de multiplayer
             scene->removeItem(gown);                                    //remueve uno de los objetivos en multijugador de la escena
