@@ -927,185 +927,185 @@ void MainWindow::decrementar()
 
 void MainWindow::MoverYColisionBolasDeFuego()
 {
-    for ( int i = 0 ; i< bolasDeFuego.size(); i++)
+    for ( int i = 0 ; i< bolasDeFuego.size(); i++)                  //un ciclo for con la candidad de bolasDeFuego en la lista
     {
-        if( ainz1[0]->collidesWithItem(bolasDeFuego.at(i)))
+        if( ainz1[0]->collidesWithItem(bolasDeFuego.at(i)))         //si hay colision entre el personaje 1 y la bola de fuego
         {
-            scene->removeItem(bolasDeFuego.at(i));
-            scene->removeItem(bolasdefuego.at(i));
-            scene->removeItem(bolasdefuego1.at(0));
-            scene->removeItem(bolasdefuego1.at(1));
-            scene->removeItem(gown);
-            ooal.removeOne(gown);
-            scene->removeItem(gown1);
-            //ooal.removeOne(gown1);
-            //scene->removeItem(gown2);
-            ooal.removeOne(gown2);
-            scene->removeItem(momon1);
-            momon.removeOne(momon1);
-            //scene->removeItem(momon2);
-            //momon.removeOne(momon2);
-            scene->removeItem(momon3);
-            momon.removeOne(momon3);
-            scene->removeItem(cetro2);
-            cetros.removeOne(cetro2);
-            scene->removeItem(cetro3);
-            cetros1.removeOne(cetro3);
+            scene->removeItem(bolasDeFuego.at(i));                  //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego.at(i));                  //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(0));                 //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(1));                 //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(gown);                                //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown);                                   //remueve el objeto de la lista
+            //scene->removeItem(gown1);                             //remueve uno de los objetivos en multijugador de la escena
+            //ooal.removeOne(gown1);                                //remueve el objeto de la lista
+            scene->removeItem(gown2);                               //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown2);                                  //remueve el objeto de la lista
+            scene->removeItem(momon1);                              //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon1);                                //remueve el objeto de la lista
+            //scene->removeItem(momon2);                            //remueve uno de los objetivos en multijugador de la escena
+            //momon.removeOne(momon2);                              //remueve el objeto de la lista
+            scene->removeItem(momon3);                              //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon3);                                //remueve el objeto de la lista
+            scene->removeItem(cetro2);                              //remueve el cetro en multijugador de la escena
+            cetros.removeOne(cetro2);                               //remueve el cetro de la lista
+            scene->removeItem(cetro3);                              //remueve el cetro en multijugador de la escena
+            cetros1.removeOne(cetro3);                              //remueve el cetro de la lista
 
-            n=11;
-            niveles();
+            n=11;                                                   //se actualiza el nivel
+            niveles();                                              //se llama la funcion niveles
         }
-        if( ainz1[1]->collidesWithItem(bolasDeFuego.at(i)))
+        if( ainz1[1]->collidesWithItem(bolasDeFuego.at(i)))             //si hay colision entre el personaje 2 y la bola de fuego
         {
-            scene->removeItem(bolasDeFuego.at(i));
-            scene->removeItem(bolasdefuego.at(i));
-            scene->removeItem(bolasdefuego1.at(0));
-            scene->removeItem(bolasdefuego1.at(1));
-            scene->removeItem(gown);
-            ooal.removeOne(gown);
-            //scene->removeItem(gown1);
-            //ooal.removeOne(gown1);
-            scene->removeItem(gown2);
-            ooal.removeOne(gown2);
-            scene->removeItem(momon1);
-            momon.removeOne(momon1);
-            //scene->removeItem(momon2);
-            //momon.removeOne(momon2);
-            scene->removeItem(momon3);
-            momon.removeOne(momon3);
-            scene->removeItem(cetro3);
-            cetros1.removeOne(cetro3);
-            scene->removeItem(cetro2);
-            cetros.removeOne(cetro2);
-            n=10;
-            niveles();
+            scene->removeItem(bolasDeFuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(0));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(1));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(gown);                                    //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown);                                       //remueve el objeto de la lista
+            //scene->removeItem(gown1);                                 //remueve uno de los objetivos en multijugador de la escena
+            //ooal.removeOne(gown1);                                    //remueve el objeto de la lista
+            scene->removeItem(gown2);                                   //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown2);                                      //remueve el objeto de la lista
+            scene->removeItem(momon1);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon1);                                    //remueve el objeto de la lista
+            //scene->removeItem(momon2);                                //remueve uno de los objetivos en multijugador de la escena
+            //momon.removeOne(momon2);                                  //remueve el objeto de la lista
+            scene->removeItem(momon3);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon3);                                    //remueve el objeto de la lista
+            scene->removeItem(cetro3);                                  //remueve el cetro en multijugador de la escena
+            cetros1.removeOne(cetro3);                                  //remueve el cetro de la lista
+            scene->removeItem(cetro2);                                  //remueve el cetro en multijugador de la escena
+            cetros.removeOne(cetro2);                                   //remueve el cetro de la lista
+            n=10;                                                       //se actualiza el nivel
+            niveles();                                                  //se llama la funcion niveles
         }
 
-        bolasDeFuego.at(i)->movimientoCircular();
+        bolasDeFuego.at(i)->movimientoCircular();                      //invoca la función  movimientoCircularpara el movimient de las bolas de fuego
     }
-    for ( int i = 0 ; i< bolasdefuego.size(); i++)
+    for ( int i = 0 ; i< bolasdefuego.size(); i++)                      //un ciclo for con la candidad de bolasdefuego en la lista
     {
-        if( ainz1[1]->collidesWithItem(bolasdefuego.at(i)))
+        if( ainz1[1]->collidesWithItem(bolasdefuego.at(i)))             //si hay colision entre el personaje 2 y la bola de fuego
         {
-            scene->removeItem(bolasdefuego.at(i));
-            scene->removeItem(bolasDeFuego.at(i));
-            scene->removeItem(bolasdefuego1.at(0));
-            scene->removeItem(bolasdefuego1.at(1));
-            scene->removeItem(gown);
-            ooal.removeOne(gown);
-            //scene->removeItem(gown1);
-            //ooal.removeOne(gown1);
-            scene->removeItem(gown2);
-            ooal.removeOne(gown2);
-            scene->removeItem(momon1);
-            momon.removeOne(momon1);
-            //scene->removeItem(momon2);
-            //momon.removeOne(momon2);
-            scene->removeItem(momon3);
-            momon.removeOne(momon3);
-            scene->removeItem(cetro3);
-            cetros1.removeOne(cetro3);
-            scene->removeItem(cetro2);
-            cetros.removeOne(cetro2);
-            n=10;
-            niveles();
+            scene->removeItem(bolasdefuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasDeFuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(0));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(1));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(gown);                                    //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown);                                       //remueve el objeto de la lista
+            //scene->removeItem(gown1);                                 //remueve uno de los objetivos en multijugador de la escena
+            //ooal.removeOne(gown1);                                    //remueve el objeto de la lista
+            scene->removeItem(gown2);                                   //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown2);                                      //remueve el objeto de la lista
+            scene->removeItem(momon1);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon1);                                    //remueve el objeto de la lista
+            //scene->removeItem(momon2);                                //remueve uno de los objetivos en multijugador de la escena
+            //momon.removeOne(momon2);                                  //remueve el objeto de la lista
+            scene->removeItem(momon3);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon3);                                    //remueve el objeto de la lista
+            scene->removeItem(cetro3);                                  //remueve el cetro en multijugador de la escena
+            cetros1.removeOne(cetro3);                                  //remueve el cetro de la lista
+            scene->removeItem(cetro2);                                  //remueve el cetro en multijugador de la escena
+            cetros.removeOne(cetro2);                                   //remueve el cetro de la lista
+            n=10;                                                       //se actualiza el nivel
+            niveles();                                                  //se llama la funcion niveles
         }
-        if( ainz1[0]->collidesWithItem(bolasdefuego.at(i)))
+        if( ainz1[0]->collidesWithItem(bolasdefuego.at(i)))               //si hay colision entre el personaje 1 y la bola de fuego
         {
-            scene->removeItem(bolasdefuego.at(i));
-            scene->removeItem(bolasDeFuego.at(i));
-            scene->removeItem(bolasdefuego1.at(0));
-            scene->removeItem(bolasdefuego1.at(1));
-            scene->removeItem(gown);
-            ooal.removeOne(gown);
-            //scene->removeItem(gown1);
-            //ooal.removeOne(gown1);
-            scene->removeItem(gown2);
-            ooal.removeOne(gown2);
-            scene->removeItem(momon1);
-            momon.removeOne(momon1);
-            //scene->removeItem(momon2);
-            //momon.removeOne(momon2);
-            scene->removeItem(momon3);
-            momon.removeOne(momon3);
-            scene->removeItem(cetro3);
-            cetros1.removeOne(cetro3);
-            scene->removeItem(cetro2);
-            cetros.removeOne(cetro2);
-            n=11;
-            niveles();
+            scene->removeItem(bolasdefuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasDeFuego.at(i));                      //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(0));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(bolasdefuego1.at(1));                     //se elimina una de lasbolas de fuego de multiplayer
+            scene->removeItem(gown);                                    //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown);                                       //remueve el objeto de la lista
+            //scene->removeItem(gown1);                                 //remueve uno de los objetivos en multijugador de la escena
+            //ooal.removeOne(gown1);                                    //remueve el objeto de la lista
+            scene->removeItem(gown2);                                   //remueve uno de los objetivos en multijugador de la escena
+            ooal.removeOne(gown2);                                      //remueve el objeto de la lista
+            scene->removeItem(momon1);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon1);                                    //remueve el objeto de la lista
+            //scene->removeItem(momon2);                                //remueve uno de los objetivos en multijugador de la escena
+            //momon.removeOne(momon2);                                  //remueve el objeto de la lista
+            scene->removeItem(momon3);                                  //remueve uno de los objetivos en multijugador de la escena
+            momon.removeOne(momon3);                                    //remueve el objeto de la lista
+            scene->removeItem(cetro3);                                  //remueve el cetro en multijugador de la escena
+            cetros1.removeOne(cetro3);                                  //remueve el cetro de la lista
+            scene->removeItem(cetro2);                                  //remueve el cetro en multijugador de la escena
+            cetros.removeOne(cetro2);                                   //remueve el cetro de la lista
+            n=11;                                                       //se actualiza el nivel
+            niveles();                                                  //se llama la funcion niveles
         }
 
-        bolasdefuego.at(i)->movimientoCircular1();
+        bolasdefuego.at(i)->movimientoCircular1();                      //invoca la función  movimientoCircular1 para el movimient de las bolas de fuego
     }
 
-    for ( int i = 0 ; i< bolasdefuego1.size(); i++)
+    for ( int i = 0 ; i< bolasdefuego1.size(); i++)                     //un ciclo for con la candidad de bolasdefuego en la lista
     {
-        bolasdefuego1.at(i)->movimientoCircular2();
+        bolasdefuego1.at(i)->movimientoCircular2();                     //invoca la función  movimientoCircular2 para el movimient de las bolas de fuego
     }
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_pushButton_3_clicked()      //para guardar la partida
 {
-    guardar save;
+    guardar save;                               //conexión con la clase guardar
 
-    save.agregar(n,vida_,puntaje_);
+    save.agregar(n,vida_,puntaje_);              //se invoca la función agregar ubicada en la clase guardar, con los parametros de vida, puntaje y nivel
 
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_pushButton_4_clicked()      //para cargar la partida
 {
     string datos,user,saldo2,arr;
     string arreglo[1][3];
     int contador1=0,contador2=0;
     ifstream registro;
-    registro.open("../juego2020/Nuevo documento de texto.txt", ios::in);
-    if (registro.fail())
+    registro.open("../juego2020/Nuevo documento de texto.txt", ios::in);        //abre el archivo de texto Nuevo documento de texto (2)
+    if (registro.fail())                                                         //si hay alguna falla abriendo el archivo se retorna error
         cerr << "Error" << endl;
-    while (registro.good()){
-        char tem=registro.get();
-        if (registro.good()){
+    while (registro.good()){                                                    //mientras sea un caracter valido
+        char tem=registro.get();                                                //a tem se le da un carcter del archivo
+        if (registro.good()){                                                   //si el caracter es valido
             if (tem!=' ' || tem!='\n'){
                 if (tem==' '){}
                 if (tem=='\n'){}
                 else{
-                    datos+=tem;
+                    datos+=tem;                                                 //tem se agrega al string datos
                 }
                 }
             if (tem==' ' || tem=='\n'){
-                arreglo[contador2][contador1]=datos;
-                contador1=contador1+1;
+                arreglo[contador2][contador1]=datos;                            //una parte del arreglo se le agrega a datos
+                contador1=contador1+1;                                              //contador2 aumenta su valor
                 if (tem=='\n'){
-                    contador2=contador2+1;
-                    contador1=0;
+                    contador2=contador2+1;                                          //contador2 aumenta su valor
+                    contador1=0;                                                    //contador es 0 nuevamentw
                     }
-                datos="";
+                datos="";                                                           //datos vuelve a ser un string vacio
                 }
 
             }
     }
-    int a=stoi(arreglo[0][0]);
-    n=a;
-    int b=stoi(arreglo[0][1]);
-    vida_=b;
-    int c=stoi(arreglo[0][2]);
-    puntaje_=c;
+    int a=stoi(arreglo[0][0]);                  //de string a entero
+    n=a;                                        //se cambia el nivel
+    int b=stoi(arreglo[0][1]);                  //de string a entero
+    vida_=b;                                    //vida cambia de valor
+    int c=stoi(arreglo[0][2]);                  //de string a entero
+    puntaje_=c;                                 //puntaje cambia su valor
 
-    niveles();
-    timer->start(6);
+    niveles();                                  //invoca la funcion niveles
+    timer->start(6);                            //crea un timer
     if(ainz1.size() < 1){
-        ainz1.push_back(new Jugador(1));
+        ainz1.push_back(new Jugador(1));        //añade el element al final
 
-        ainz1[0] -> actualizar(v_limit);
-        ainz1[0] -> setFlag(QGraphicsItem::ItemIsFocusable);
-        ainz1[0] -> setFocus();
+        ainz1[0] -> actualizar(v_limit);        //le da al personaje cualidades fisicas
+        ainz1[0] -> setFlag(QGraphicsItem::ItemIsFocusable);    //dibuja el personaje
+        ainz1[0] -> setFocus();                     //enfoca al personaje
 
-        scene -> addItem(ainz1[0]);
+        scene -> addItem(ainz1[0]);             //agrega el personaje a la escena
     }
 }
 
-void MainWindow::on_pushButton_5_clicked()
+void MainWindow::on_pushButton_5_clicked()      //para registrar usuario
 {
-    registro *regis = new registro();
-    regis->show();
+    registro *regis = new registro();           //se crea un puntero para la conexión en la clase registro
+    regis->show();                              //muestra la ventana
 }
