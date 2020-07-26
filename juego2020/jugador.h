@@ -9,7 +9,7 @@
 #include "actualizaciones.h"
 #include "enemy.h"
 
-class Jugador: public QObject, public QGraphicsPixmapItem       //usa la libreria QGraphicsPixmapItem para dibujar al personaje
+class Jugador: public QObject, public QGraphicsPixmapItem              //usa la libreria QGraphicsPixmapItem para dibujar al personaje
 {
 public:
     Jugador(int x);

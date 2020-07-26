@@ -12,31 +12,31 @@
 #include <fstream>
 #include <stdlib.h>
 
-class magia: public QObject, public QGraphicsPixmapItem
+class magia: public QObject, public QGraphicsPixmapItem     //clase encargada de crear la magia que el jugador lanzara
 {
-    int puntaje;
+    int puntaje;        //variable que se usara para afectar el puntaje
     Q_OBJECT
 public:
     magia();
-    void getcolision(int puntaje);
+    void getcolision(int puntaje);      //mira las colisiones para afectar el puntaje en el mainwindow
 
 
 public slots:
-    void move();
+    void move();        //direcciona el movimiento de la magia
 
 
 };
-class magia1: public QObject, public QGraphicsPixmapItem
+class magia1: public QObject, public QGraphicsPixmapItem        //clase encargada de crear la magia que el jugador lanzara  en multijugador
 {
-    int puntaje;
+    int puntaje;        //variable que se usara para afectar el puntaje
     Q_OBJECT
 public:
     magia1();
-    void getcolision1(int puntaje);
+    void getcolision1(int puntaje);     //mira las colisiones para afectar el puntaje en el mainwindow
 
 
 public slots:
-    void move1();
+    void move1();         //direcciona el movimiento de la magia
 
 
 };

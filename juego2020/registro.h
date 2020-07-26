@@ -23,7 +23,7 @@ public:
 
 
 private slots:
-    void on_enviar_clicked();
+    void on_enviar_clicked();       //registra el personaje
 
 private:
     Ui::registro *ui;
