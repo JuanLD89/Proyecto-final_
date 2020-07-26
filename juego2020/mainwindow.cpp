@@ -32,18 +32,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->resize(scene->width(),scene->height());           //declara las dimensiones
     this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
 
-    this->ui->lcdNumber->display(vida_);
-    this->ui->lcdNumber_2->display(puntaje_);
-    this->ui->lcdNumber_3->display(puntaje2_);
+    this->ui->lcdNumber->display(vida_);                //hace una conexion  con el lcdNumber para contabilizar las vidas
+    this->ui->lcdNumber_2->display(puntaje_);             //hace una conexion  con el lcdNumber para contabilizar el puntaje en individual
+    this->ui->lcdNumber_3->display(puntaje2_);          //hace una conexion  con el lcdNumber para contabilizar el puntaje en multijugador
 
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
 
-    connect(timer,SIGNAL(timeout()),this,SLOT(MoverYColisionBolasDeFuego()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
+    connect(timer,SIGNAL(timeout()),this,SLOT(MoverYColisionBolasDeFuego()));       //crea un timer para llamar a la funcion moverbolasdefuego y permite los movimientos fisicos de las bolas de fuego
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
-
-    //connect(timer,SIGNAL(timeout()),this,SLOT(decrementar()));       //crea un timer para llamar a la funcion actualiz y permite los moviientos fisicos del personaje
-    //timer -> start(3500);     //se declara cada cuanto tiempo actualiza la información
 }
 
 MainWindow::~MainWindow()               //destructor
@@ -67,54 +64,54 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
     }
 
 
-    this->ui->lcdNumber->display(vida_);
-    if(vida_ < 1 && ainz1.size()==1){
-        n = 0;
-        niveles();
-        scene->removeItem(ainz1.back());
-        ainz1.removeAt(0);
+    this->ui->lcdNumber->display(vida_);            //conexion con lcdNumber
+    if(vida_ < 1 && ainz1.size()==1){               //si unicamente hay un jugador y hay menos de 1 vida
+        n = 0;                                      //el nivel será 0
+        niveles();                                  //se invoca la funcin niveles
+        scene->removeItem(ainz1.back());            //remueve a ainz de la escena
+        ainz1.removeAt(0);                          //lo remueve de la lista
     }
 
-    this->ui->lcdNumber_2->display(puntaje_);
-    if(puntaje_ < 1 && ainz1.size()==1){
-        n = 0;
-        niveles();
-        scene->removeItem(ainz1.back());
-        ainz1.removeAt(0);
+    this->ui->lcdNumber_2->display(puntaje_);       //conexion con lcdNumber
+    if(puntaje_ < 1 && ainz1.size()==1){            //si unicamente hay un jugador y hay menos de 1 vida
+        n = 0;                                      //el nivel será 0
+        niveles();                                  //se invoca la funcin niveles
+        scene->removeItem(ainz1.back());            //remueve a ainz de la escena
+        ainz1.removeAt(0);                          //lo remueve de la lista
     }
 
-    this->ui->lcdNumber_3->display(puntaje2_);
-    if(puntaje2_ < 1 && ainz1.size()==2){
-        n = 9;
-        niveles();
-        scene->removeItem(ainz1.back());
-        ainz1.removeAt(1);
+    this->ui->lcdNumber_3->display(puntaje2_);      //conexion con lcdNumber
+    if(puntaje2_ < 1 && ainz1.size()==2){           //si unicamente hay un jugador y hay menos de 1 vida
+        n = 9;                                      //el nivel será 9
+        niveles();                                  //se invoca la funcin niveles
+        scene->removeItem(ainz1.back());            //remueve a momon de la escena
+        ainz1.removeAt(1);                          //lo remueve de la lista
     }
 
 
-    if (vida_==0){
+    if (vida_==0){                                  //si pierde todas las vidaas
 
-        scene->removeItem(cura1);
-        curas.removeOne(cura1);
-        scene->removeItem(anillo1);
-        anillos.removeOne(anillo1);
-        scene->removeItem(sword1);
-        swordss.removeOne(sword1);
-        scene->removeItem(uno);
-        objetivoss.removeOne(uno);
-        scene->removeItem(dos);
-        objetivoss.removeOne(dos);
-        scene->removeItem(tres);
-        objetivoss.removeOne(tres);
-        n=8;
-        niveles();
+        scene->removeItem(cura1);                   //remueve la vida extra de la escena
+        curas.removeOne(cura1);                     //remueve el objeto de la lista
+        scene->removeItem(anillo1);                 //remueve el anillo de la escena
+        anillos.removeOne(anillo1);                 //remueve el objeto de la lista
+        scene->removeItem(sword1);                  //remueve la espada de la escena
+        swordss.removeOne(sword1);                  //remueve el objeto de la lista
+        scene->removeItem(uno);                     //remueve la uno de los 3 objetivos del pimer nivel de la escena
+        objetivoss.removeOne(uno);                   //remueve el objeto de la lista
+        scene->removeItem(dos);                      //remueve la uno de los 3 objetivos del pimer nivel de la escena
+        objetivoss.removeOne(dos);                  //remueve el objeto de la lista
+        scene->removeItem(tres);                    //remueve la uno de los 3 objetivos del pimer nivel de la escena
+        objetivoss.removeOne(tres);                 //remueve el objeto de la lista
+        n=8;                                        //el nivel sera 8
+        niveles();                                  //se invoca la función niveles
     }
 }
 void MainWindow::enemigos11()
 {
     if(n==2){
-        Enemy * enemigo = new Enemy();
-        scene->addItem(enemigo);
+        Enemy * enemigo = new Enemy();              //conexionn con la clase enemy y crea un puntero ara los enemigos
+        scene->addItem(enemigo);                    //agrega  enemigoo a la escena
 
     }
 
@@ -124,18 +121,18 @@ void MainWindow::enemigos11()
 void MainWindow::contadorparaenemigos()
 {
     if (n==2){
-        QTimer *timer3 = new QTimer();
-        QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));
-        timer3->start(3500);
+        QTimer *timer3 = new QTimer();                                                           //crea un timer
+        QObject :: connect(timer3, SIGNAL(timeout()), this, SLOT(enemigos11()));                //conexion con la funcion enemigos11 por medio de un timer
+        timer3->start(3500);                                                                    //los va a crear cada determinado tiempo
     }
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    //iniciarse ini;
-    //iniciarse *inicio = new iniciarse();
-    //inicio->show();
+    iniciarse ini;                            //conexion conn la clase iniciarse
+    iniciarse *inicio = new iniciarse();      //un puntero  a la clase iniciarse
+    inicio->show();                           //muestra la ventana iniciarse
 
 
     n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
@@ -175,138 +172,138 @@ void MainWindow::niveles(){
     }
     if(n == 2){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/Overlord_III_EP09_022 (1).png"));   //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());           //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
 
-        uno= new objetivos(910,140,50,50);scene->addItem(uno);objetivoss.push_back(uno);
-        dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);
-        tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);
-        cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);
+        uno= new objetivos(910,140,50,50);scene->addItem(uno);objetivoss.push_back(uno);            //crea un objetivo a destruir con magia
+        dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);            //crea un objetivo a destruir con magia
+        tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);         //crea un objetivo a destruir con magia
+        cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);                  //crea la vida extra a recoger en el nivel 1
 
 
         if (n==2){
-            contadorparaenemigos();
+            contadorparaenemigos();                                             //invoca la función a cargo de ivoacr los enemigos al nivel
 
         }
     }
     if(n == 3){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/momonga2.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga2.png"));            //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
 
     }
     if(n == 4){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
         scene->setBackgroundBrush(QPixmap(":/imagen/fo.png"));    //da una imagen a la escena
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
-        sword1= new swords(610,500,50,50);scene->addItem(sword1);swordss.push_back(sword1);
-        cura1= new salud(1099,430,50,50);scene->addItem(cura1);curas.push_back(cura1);
+        ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
+        sword1= new swords(610,500,50,50);scene->addItem(sword1);swordss.push_back(sword1);         //crea las espadas a recoger en el nivel 2
+        cura1= new salud(1099,430,50,50);scene->addItem(cura1);curas.push_back(cura1);              //crea la vida extra a recoger en el nivel 2
 
 
     }
     if(n == 5){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));            //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
 
 
     }
     if(n == 6){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));         //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());                       //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
 
     }
     if(n == 7){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/nazarik_dungeon.png"));             //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());                       //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
 
     }
     if(n == 8){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/castigo.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/castigo.png"));         //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());           //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
 
     }
     if(n == 9){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/ultimateworld.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
-        gown= new ainz(290,140,50,50);scene->addItem(gown);ooal.push_back(gown);
-        //gown1= new ainz(290,300,50,50);scene->addItem(gown1);ooal.push_back(gown1);
-        gown2= new ainz(290,480,50,50);scene->addItem(gown2);ooal.push_back(gown2);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/ultimateworld.png"));           //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());                   //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);    //ejecuta y crea las dimensiones
+        gown= new ainz(290,140,50,50);scene->addItem(gown);ooal.push_back(gown);            //crea un objetivo a destruir con magia
+        //gown1= new ainz(290,300,50,50);scene->addItem(gown1);ooal.push_back(gown1);       //crea un objetivo a destruir con magia
+        gown2= new ainz(290,480,50,50);scene->addItem(gown2);ooal.push_back(gown2);         //crea un objetivo a destruir con magia
 
 
-        momon1= new momonga(910,140,50,50);scene->addItem(momon1);momon.push_back(momon1);
-        //momon2= new momonga(910,300,50,50);scene->addItem(momon2);momon.push_back(momon2);
-        momon3= new momonga(910,480,50,50);scene->addItem(momon3);momon.push_back(momon3);
+        momon1= new momonga(910,140,50,50);scene->addItem(momon1);momon.push_back(momon1);          //crea un objetivo a destruir con magia
+        //momon2= new momonga(910,300,50,50);scene->addItem(momon2);momon.push_back(momon2);        //crea un objetivo a destruir con magia
+        momon3= new momonga(910,480,50,50);scene->addItem(momon3);momon.push_back(momon3);      //crea un objetivo a destruir con magia
 
-        cetro2= new cetro(1090,540,50,120);scene->addItem(cetro2);cetros.push_back(cetro2);
-        cetro3= new cetro1(110,540,50,120);scene->addItem(cetro3);cetros1.push_back(cetro3);
+        cetro2= new cetro(1090,540,50,120);scene->addItem(cetro2);cetros.push_back(cetro2);         //crea un  cetro
+        cetro3= new cetro1(110,540,50,120);scene->addItem(cetro3);cetros1.push_back(cetro3);        //crea un  cetro
 
-        generarObstaculos();
+        generarObstaculos();                    //invoca la funcion generarObstaculos, para las bolas de fuego en multijugador
 
     }
     if (n==10){
             scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-            ui->graphicsView->setScene(scene);
-            ui->centralwidget->adjustSize();
-            scene->addRect(scene->sceneRect());
-            scene->setBackgroundBrush(QPixmap(":/imagen/Fondo-blanco-pagina-01 (1).png"));
-            ui->graphicsView->resize(scene->width(),scene->height());
-            this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+            ui->graphicsView->setScene(scene);                   //declara la escena
+            ui->centralwidget->adjustSize();                    //ajusta la escena
+            scene->addRect(scene->sceneRect());                 //agrega la escen
+            scene->setBackgroundBrush(QPixmap(":/imagen/Fondo-blanco-pagina-01 (1).png"));          //da una imagen a la escena
+            ui->graphicsView->resize(scene->width(),scene->height());                               //declara las dimensiones
+            this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
         }
     if (n==11){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/battle.jpg"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/battle.jpg"));              //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
     }
 
     /*if (n==12){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
-        ui->graphicsView->setScene(scene);
-        ui->centralwidget->adjustSize();
-        scene->addRect(scene->sceneRect());
-        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));
-        ui->graphicsView->resize(scene->width(),scene->height());
-        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);
+        ui->graphicsView->setScene(scene);                   //declara la escena
+        ui->centralwidget->adjustSize();                    //ajusta la escena
+        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->setBackgroundBrush(QPixmap(":/imagen/momonga3.png"));            //da una imagen a la escena
+        ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
+        this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
     }*/
 }
 
@@ -315,15 +312,20 @@ void MainWindow::niveles(){
 
 void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bordes
 {
+    //a coninuación sexplicara la ligica de las plataformas
+    //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+    //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+    //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+    //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
     if (n == 1){
         if(b->get_posX()<(b->get_Radio())){     //colisión con el borde izquierdo
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;
         }
         if(b->get_posX()>h_limit-b->get_Radio()*2){//colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit, b->get_posY());
-            n=2;
-            b->set_vel(0,0, 60, 20);
-            niveles();
+            n=2;                            //actualiza el nivel
+            b->set_vel(0,0, 60, 20);        //actuliza la posicion del personaje
+            niveles();                      //invoca la funcion niveles
         }
         if(b->get_posY()<((b->get_Radio()))){//colisión con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -333,18 +335,22 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
     }
     if (n==2){
-
-        if(b->get_posX()<(b->get_Radio())){
-            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
+        if(b->get_posX()<(b->get_Radio())){     //choque con el borde izquierdo
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;
         }
-        if(b->get_posX()>h_limit-b->get_Radio()){
+        if(b->get_posX()>h_limit-b->get_Radio()){       //colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
             if (puntaje_>=101){
-                scene->removeItem(cura);
-                curas.removeOne(cura);
-                n=3;
-                b->set_vel(0,0, 1150, 620);
-                niveles();
+                scene->removeItem(cura);        //remueve cura de la escena
+                curas.removeOne(cura);          //remueve cura de la lista
+                n=3;                            //actualiza el nivel
+                b->set_vel(0,0, 1150, 620);     //actualiza la posición del personaje
+                niveles();                      //invoca la funcion niveles
             }
 
         }
@@ -354,35 +360,44 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
-        if (b->get_posY() >= 150 && b->get_posY() < 160 && b->get_posX() >= 330 && b->get_posX() < 670 ){
+
+
+        if (b->get_posY() >= 150 && b->get_posY() < 160 && b->get_posX() >= 330 && b->get_posX() < 670 ){       //primer plataforma
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 95+b->get_Radio());
-            //puntaje_+=1;
         }
-        if (b->get_posY() >= 282 && b->get_posY() < 292 && b->get_posX() >= 30 && b->get_posX() < 312 ){
+
+        if (b->get_posY() >= 282 && b->get_posY() < 292 && b->get_posX() >= 30 && b->get_posX() < 312 ){        //plataforma del medio
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 227+b->get_Radio());
         }
-        if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){
+
+        if (b->get_posY() >= 390 && b->get_posY() < 400 && b->get_posX() >= 360 && b->get_posX() < 680 ){       //ultima del final
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 335+b->get_Radio());
         }
 
 
+
+        //para que aparezca en la escena el anillo luego de destruir los objetivos
         if (n==2){
             if (puntaje_==4){
-                anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);
+                anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);      //agrega el anillo a la escena
                 puntaje_+=1;
             }
         }
-        //decrementar();
     }
     if (n==3){
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
 
-        if(b->get_posX()<(b->get_Radio())){
-            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
-            n=4;
-            b->set_vel(0,0, 60, 520);
-            niveles();
+        if(b->get_posX()<(b->get_Radio())){ //con el borde izquierdo
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;
+            n=4;                                //el nivel se actualiza
+            b->set_vel(0,0, 60, 520);           //la posicion del pesonaje se actualiza
+            niveles();                          //se invoca la funcion niveles
         }
-        if(b->get_posX()>h_limit-b->get_Radio()){
+        if(b->get_posX()>h_limit-b->get_Radio()){       //colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
 
         }
@@ -396,10 +411,16 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
     }
     if (n==4){
 
-        if(b->get_posX()<(b->get_Radio())){
-            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
+
+        if(b->get_posX()<(b->get_Radio())){     //con el borde izquierdo
+            b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;
         }
-        if(b->get_posX()>h_limit-b->get_Radio()){
+        if(b->get_posX()>h_limit-b->get_Radio()){       //colisión con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-b->get_Radio(), b->get_posY());
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
@@ -408,32 +429,45 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit));
         }
-        if(b->get_posY() >=0 && b->get_posY() < 90 && b-> get_posX() >=  50 && b->get_posX()<1200){
-            b->set_vel(0,0, 590, 210);
-            vida_-=1;
+        if(b->get_posY() >=0 && b->get_posY() < 90 && b-> get_posX() >=  50 && b->get_posX()<1200){             //para alterar la ubicación del personaje
+            b->set_vel(0,0, 590, 210);                                                                          //la posicion del pesonaje se actualiza
+            vida_-=1;                                                                                           //se resta una vida
 
         }
-        if(b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 960 && b->get_posX() < 1035 ){
-            b->set_vel(0,0, 55, 420);
-            vida_-=1;
+        if(b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 960 && b->get_posX() < 1035 ){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 55, 420);                                                                           //la posicion del pesonaje se actualiza
+            vida_-=1;                                                                                           //se resta una vida
 
         }
-        if(b->get_posY() >= 360 && b->get_posY() < 370 && b->get_posX() >= 710 && b->get_posX() < 799 ){
-            b->set_vel(0,0, 55, 420);
-            vida_-=1;
+        if(b->get_posY() >= 360 && b->get_posY() < 370 && b->get_posX() >= 710 && b->get_posX() < 799 ){        //para alterar la ubicación del personaje
+            b->set_vel(0,0, 55, 420);                                                                           //la posicion del pesonaje se actualiza
+            vida_-=1;                                                                                           //se resta una vida
 
         }
-        if (b->get_posY() >= 544 && b->get_posY() < 554 && b->get_posX() >= 398 && b->get_posX() < 505 ){
-            b->set_vel(0,0, 55, 420);
-            vida_-=1;
+        if (b->get_posY() >= 544 && b->get_posY() < 554 && b->get_posX() >= 398 && b->get_posX() < 505 ){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 55, 420);                                                                           //la posicion del pesonaje se actualiza
+            vida_-=1;                                                                                           //se resta una vida
 
         }
-        if(b->get_posY() >= 0 && b->get_posY() < 100 && b-> get_posX() >=  1000 && b->get_posX()<1250){
-            b->set_vel(0,0, 565, 165);
+        if(b->get_posY() >= 0 && b->get_posY() < 100 && b-> get_posX() >=  1000 && b->get_posX()<1250){         //para alterar la ubicación del personaje
+            b->set_vel(0,0, 565, 165);                                                                          //la posicion del pesonaje se actualiza
         }
-        if(b->get_posY() >= 230 && b->get_posY() < 250 && b-> get_posX() >=  1180 && b->get_posX()<1190){
-            b->set_vel(0,0, 55, 620);
+        if(b->get_posY() >= 230 && b->get_posY() < 250 && b-> get_posX() >=  1180 && b->get_posX()<1190){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 55, 620);                                                                           //la posicion del pesonaje se actualiza
         }
+        if (b->get_posY() >= 140 && b->get_posY() < 150 && b->get_posX() >= 900 && b->get_posX() < 1000 ){      //para alterar la ubicación del personaje
+            b->set_vel(0,0, 1100, 290);                                                                         //la posicion del pesonaje se actualiza
+        }
+        if(b->get_posY() >= 330 && b->get_posY() < 430 && b-> get_posX() >=  1160 && b->get_posX()<1250){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 70, 610);                                                                           //la posicion del pesonaje se actualiza
+        }
+
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
+
         if (b->get_posY() >= 160 && b->get_posY() < 170 && b->get_posX() >= 555 && b->get_posX() < 765 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 105+b->get_Radio());
         }
@@ -446,14 +480,6 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 330 && b->get_posY() < 340 && b->get_posX() >= 855 && b->get_posX() < 1250 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 275+b->get_Radio());
         }
-
-
-        if (b->get_posY() >= 140 && b->get_posY() < 150 && b->get_posX() >= 900 && b->get_posX() < 1000 ){
-            b->set_vel(0,0, 1100, 290);
-        }
-        if(b->get_posY() >= 330 && b->get_posY() < 430 && b-> get_posX() >=  1160 && b->get_posX()<1250){
-            b->set_vel(0,0, 70, 610);
-        }
         if (b->get_posY() >= 595 && b->get_posY() < 605 && b->get_posX() >= 55 && b->get_posX() < 177 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 540+b->get_Radio());
         }
@@ -463,32 +489,34 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 695 && b->get_posX() < 957 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
         }
-        if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 1035 && b->get_posX() < 1250 ){
-            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
-            if (puntaje_>=201){
-                scene->removeItem(cura1);
-                curas.removeOne(cura1);
-                b->set_vel(0,0, 60, 20);
-                n=5;
-                niveles();
-            }
-        }
-
         if(b->get_posY() >= 480 && b-> get_posX() >=  1160 && b->get_posX()<1179){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 425+b->get_Radio());
         }
-
-
-
+        if (b->get_posY() >= 600 && b->get_posY() < 610 && b->get_posX() >= 1035 && b->get_posX() < 1250 ){     //para pasar de nivel
+            b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 545+b->get_Radio());
+            if (puntaje_>=201){
+                scene->removeItem(cura1);                                                                       //remueve cura1 de la escena
+                curas.removeOne(cura1);                                                                          //remueve cura de la lista
+                b->set_vel(0,0, 60, 20);                                                                        //la posicion del pesonaje se actualiza
+                n=5;                                                                                            //actualiza el nivel
+                niveles();                                                                                      //invoca la función niveles
+            }
+        }
     }
     if (n == 5){
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
+
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
         }
         if(b->get_posX()>h_limit-b->get_Radio()){//posicion con el borde derecho.
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(), h_limit-(b->get_Radio()), b->get_posY());
-            n=6;
-            niveles();
+            n=6;                                                                                                //actualiza el nivel
+            niveles();                                                                                          //invoca la funcion niveles
         }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
@@ -498,6 +526,11 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
     }
     if (n==9){
+        //a coninuación sexplicara la ligica de las plataformas
+        //El personaje es b, si la posicion de b en Y esta entre la posicion en Y de la plataforma y la posicion de Y de la plataforma
+        //Luego se compara, que la posicion en X de su objeto b este entre la posicion en X de la plataforma y entre la posicion en X de su plataforma
+        //Si se cumple esas condiciones llama a setVel, deja la velocidad en X y en Y igual, la posicion en X tambien igual y la posicion en Y cambia por un valor aproximado al alto de su plataforma mas el alto del personaje
+        //-1*b->get_e() es pra qe el personaje rebote cuando caiga encima de una de las plataformas
 
         if(b->get_posX()<(b->get_Radio())){
             b->set_vel(-1*b->get_e()*b->get_velX(),b->get_velY(),b->get_Radio(), b->get_posY()) ;//con el borde izquierdo
@@ -512,6 +545,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         if(b->get_posY()>v_limit){//choque con el borde inferior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), b->get_posX(), (v_limit+400));
         }
+
         if (b->get_posY() >= 180 && b->get_posY() < 190 && b->get_posX() >= 455 && b->get_posX() < 725 ){
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 125+b->get_Radio());
         }
@@ -522,47 +556,51 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             b->set_vel(b->get_velX(), -1*b->get_e()*b->get_velY(),b->get_posX(), 365+b->get_Radio());
         }
 
-        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 820 && b->get_posX() < 995 ){
-            b->set_vel(0,0, 600, 20);
+
+
+        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 820 && b->get_posX() < 995 ){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 600, 20);                                                                       //la posicion del pesonaje se actualiza
         }
-        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 130 && b->get_posX() < 320 ){
-            b->set_vel(0,0, 600, 20);
+        if(b->get_posY() >= 0 && b->get_posY() < 70 && b->get_posX() >= 130 && b->get_posX() < 320 ){       //para alterar la ubicación del personaje
+            b->set_vel(0,0, 600, 20);                                                                       //la posicion del pesonaje se actualiza
         }
-        recoger();
+
+
+        recoger();                                                                                          //se invoca la funcion recoger para recoger los objetos que exige el nivel para pasarlo
         if (puntaje_>=5 && puntaje2_>=5){
-            b->set_vel(0,0, 60, 20);
-            n=3;
-            niveles();
+            b->set_vel(0,0, 60, 20);                                                                        //la posicion del pesonaje se actualiza
+            n=3;                                                                                            //se actualiza el nivel
+            niveles();                                                                                      //se invoca la función niveles
         }
         if (puntaje_>=5 || puntaje2_>=5){
             if (puntaje2_>puntaje_){
-                b->set_vel(0,0, 60, 20);
-                n=10;
-                niveles();
-                scene->removeItem(cetro3);
-                cetros1.removeOne(cetro3);
-                scene->removeItem(bolasDeFuego.at(0));
-                scene->removeItem(bolasdefuego.at(0));
-                scene->removeItem(bolasdefuego1.at(0));
-                scene->removeItem(bolasdefuego1.at(1));
+                b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
+                n=10;                                                                                       //se actualiza el nivel
+                niveles();                                                                                  //se invoca la función niveles
+                scene->removeItem(cetro3);                                                                  //remueve cetro3 de la escena
+                cetros1.removeOne(cetro3);                                                                  //remueve cetro3 de la lista
+                scene->removeItem(bolasDeFuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego1.at(0));                                                     //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego1.at(1));                                                     //se elimina una de lasbolas de fuego de multiplayer
             }
             if (puntaje_>puntaje2_){
-                b->set_vel(0,0, 60, 20);
-                n=11;
-                niveles();
-                scene->removeItem(cetro2);
-                cetros.removeOne(cetro2);
-                scene->removeItem(bolasDeFuego.at(0));
-                scene->removeItem(bolasdefuego.at(0));
-                scene->removeItem(bolasdefuego1.at(0));
-                scene->removeItem(bolasdefuego1.at(1));
+                b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
+                n=11;                                                                                       //se actualiza el nivel
+                niveles();                                                                                  //se invoca la función niveles
+                scene->removeItem(cetro2);                                                                  //remueve cetro2 de la escena
+                cetros.removeOne(cetro2);                                                                   //remueve cetro2 de la lista
+                scene->removeItem(bolasDeFuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego1.at(0));                                                     //se elimina una de lasbolas de fuego de multiplayer
+                scene->removeItem(bolasdefuego1.at(1));                                                     //se elimina una de lasbolas de fuego de multiplayer
             }
         }
    }
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(ainz1.size()>0 && ainz1.size()< 2){
+    if(ainz1.size()>0 && ainz1.size()< 2){                      //si no es mulitplayer
         actualizaciones *b = ainz1.at(0)->getPlayer();       //conexión con la clase actualizaciones
         if(n==1){
             if (event->key() == Qt::Key_D ){        // con D e avanza
@@ -571,16 +609,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_A ){        //con A se retrocede
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_W){         //con W de salta
+            if (event->key() == Qt::Key_W){         //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                 if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_S){
+            if (event->key() == Qt::Key_S){     //con S se puede lanzar magia
 
-                magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                scene->addItem(mago);
+                magia * mago = new magia();     //conexion con magia y crea un puntero
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90); //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                scene->addItem(mago);           //agrega magia a la escena
 
             }
 
@@ -592,22 +630,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_A ){        //con A se retrocede
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_W){         //con W de salta
+            if (event->key() == Qt::Key_W){         //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                 if(b->get_posY() >= 0 && b->get_posY() < 70|| b->get_posY() == 160|| b->get_posY() == 292|| b->get_posY() == 400){  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_S){
+            if (event->key() == Qt::Key_S){         //con S se puede lanzar magia
 
-                magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                scene->addItem(mago);
+                magia * mago = new magia();         //conexion con magia y crea un puntero
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);  //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                scene->addItem(mago);               //agrega magia a la escena
 
             }
-            recoger();
-            aumentar();
-            aunmnmentar();
-            decrementar();
+            recoger();          //invoca la función recoger para tomar los objetos que pide el nivel
+            aumentar();         //invoca la función aumentar para la vidas
+            aunmnmentar();      //invoca la función aumentar para el puntaje
+            decrementar();      //invoca la función decremenar para la vidas
 
         }
         if(n==3){
@@ -617,16 +655,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_A ){        //con A se retrocede
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_W){         //con W de salta
+            if (event->key() == Qt::Key_W){         //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                 if(b->get_posY() >= 0 && b->get_posY() < 70){  //restricciones acerca de que partes de puede saltar
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_S){
+            if (event->key() == Qt::Key_S){     //con S se puede lanzar magia
 
-                magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                scene->addItem(mago);
+                magia * mago = new magia();     //conexion con magia y crea un puntero
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);      //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                scene->addItem(mago);           //agrega magia a la escena
 
             }
         }
@@ -637,7 +675,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if (event->key() == Qt::Key_A ){        //con A se retrocede
                 b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_W){         //con W de salta
+            if (event->key() == Qt::Key_W){         //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                 if(b->get_posY() >= 0 && b->get_posY() < 70 || b->get_posY() == 170 || b->get_posY() == 480
                     || (b->get_posY() == 290)|| b->get_posY() == 490 ||b->get_posY() == 370 ||b->get_posY() == 564 ||b->get_posY() == 605
                     ||b->get_posY() == 495 ||b->get_posY() == 340 ||b->get_posY() >= 544 && b->get_posY() <= 554||b->get_posY() == 610){
@@ -645,150 +683,149 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_S){
+            if (event->key() == Qt::Key_S){         //con S se puede lanzar magia
 
-                magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                scene->addItem(mago);
+                magia * mago = new magia();         //conexion con magia y crea un puntero
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);      //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                scene->addItem(mago);               //agrega magia a la escena
             }
 
-            recoger();
-            aumentar();
+            recoger();      //invoca la función recoger para tomar los objetos que pide el nivel
+            aumentar();     //invoca la función aumentar para la vidas
         }
         if(n==5){
-            if (event->key() == Qt::Key_D ){
-                b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());
+            if (event->key() == Qt::Key_D ){            // con D e avanza
+                b->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());      //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_A ){
-                b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());
+            if (event->key() == Qt::Key_A ){            //con A se retrocede
+                b->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());     //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
             }
-            if (event->key() == Qt::Key_W){
+            if (event->key() == Qt::Key_W){         //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                 if(b->get_posY() >= 0 && b->get_posY() < 70 ){
-                    b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
+                    b->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
             }
-            if (event->key() == Qt::Key_S){
+            if (event->key() == Qt::Key_S){         //con S se puede lanzar magia
 
-                magia * mago = new magia();
-                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                scene->addItem(mago);
+                magia * mago = new magia();         //conexion con magia y crea un puntero
+                mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);          //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                scene->addItem(mago);               //agrega magia a la escena
             }
         }
     }
 
 
-    else if(ainz1.size()==2){
-            actualizaciones *b = ainz1.at(0)->getPlayer();
-            actualizaciones *c = ainz1.at(1)->getPlayer();
+    else if(ainz1.size()==2){               //si es multiplayer
+            actualizaciones *b = ainz1.at(0)->getPlayer();      //conexión con la clase actualizaciones para el primer jugador
+            actualizaciones *c = ainz1.at(1)->getPlayer();      //conexión con la clase actualizaciones para el segundo jugador
             if(n==9){
-                if (event->key() == Qt::Key_D ){
-                    ainz1.at(0)->getPlayer()->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());
+                if (event->key() == Qt::Key_D ){        // con D e avanza
+                    ainz1.at(0)->getPlayer()->set_vel(30,b->get_velY(),b->get_posX(), b->get_posY());       //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
-                if (event->key() == Qt::Key_A ){
-                    ainz1.at(0)->getPlayer()->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());
+                if (event->key() == Qt::Key_A ){     //con A se retrocede
+                    ainz1.at(0)->getPlayer()->set_vel(-30,b->get_velY(),b->get_posX(), b->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
-                if (event->key() == Qt::Key_W){
+                if (event->key() == Qt::Key_W){     //con W de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                     if (b->get_posY() >= 0 && b->get_posY() < 70 || b->get_posY() == 180 || b->get_posY() == 190
                             || b->get_posY() == 310 || b->get_posY() == 430 ){
-                        ainz1.at(0)->getPlayer()->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());
+                        ainz1.at(0)->getPlayer()->set_vel(b->get_velX(),50,b->get_posX(), b->get_posY());   //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
 
                     }
                 }
+                if (event->key() == Qt::Key_S){     //con S se puede lanzar magia
 
+                    magia * mago = new magia();     //conexion con magia y crea un puntero
+                    mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);      //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                    scene->addItem(mago);           //agrega magia a la escena
                 }
-                if (event->key() == Qt::Key_S){
-
-                    magia * mago = new magia();
-                    mago->setPos(x()+ainz1[0]->getPlayer()->get_Radio()+ainz1[0]->getPlayer()->get_posX(),y()+v_limit-ainz1[0]->getPlayer()->get_posY()+ainz1[0]->getPlayer()->get_Radio()-90);
-                    scene->addItem(mago);
+                if (event->key() == Qt::Key_K ){        // con K e avanza
+                    ainz1.at(1)->getPlayer()->set_vel(30,c->get_velY(),c->get_posX(), c->get_posY());   //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
-                if (event->key() == Qt::Key_K ){
-                    ainz1.at(1)->getPlayer()->set_vel(30,c->get_velY(),c->get_posX(), c->get_posY());
+                if (event->key() == Qt::Key_H ){        //con H se retrocede
+                    ainz1.at(1)->getPlayer()->set_vel(-30,c->get_velY(),c->get_posX(), c->get_posY());  //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
                 }
-                if (event->key() == Qt::Key_H ){
-                    ainz1.at(1)->getPlayer()->set_vel(-30,c->get_velY(),c->get_posX(), c->get_posY());
-                }
-                if (event->key() == Qt::Key_U){
+                if (event->key() == Qt::Key_U){         //con U de salta, abajo estan las condiciones para saber en que posiciones se puede saltar
                     if (c->get_posY() >= 0 && c->get_posY() < 70 || c->get_posY() == 180 || c->get_posY() == 190
                             || c->get_posY() == 310 || c->get_posY() == 430 ){
-                        ainz1.at(1)->getPlayer()->set_vel(c->get_velX(),50,c->get_posX(), c->get_posY());
+                        ainz1.at(1)->getPlayer()->set_vel(c->get_velX(),50,c->get_posX(), c->get_posY());       //se conecta con la fución set_vel ubicada en actualizaciones y te pide como parametros velocidad en x y en y, y la posición en x y en y
 
                     }
                 }
-                if (event->key() == Qt::Key_J){
+                if (event->key() == Qt::Key_J){         //con J se puede lanzar espadas
 
-                    magia1 * mago1 = new magia1();
-                    mago1->setPos(x()-ainz1[1]->getPlayer()->get_Radio()+ainz1[1]->getPlayer()->get_posX(),y()+v_limit-ainz1[1]->getPlayer()->get_posY()+ainz1[1]->getPlayer()->get_Radio()-70);
-                    scene->addItem(mago1);
+                    magia1 * mago1 = new magia1();      //conexion con magia y crea un puntero
+                    mago1->setPos(x()-ainz1[1]->getPlayer()->get_Radio()+ainz1[1]->getPlayer()->get_posX(),y()+v_limit-ainz1[1]->getPlayer()->get_posY()+ainz1[1]->getPlayer()->get_Radio()-55);         //localiza la posicion en x y en y del personaje para poder localizar la posicion de la magia
+                    scene->addItem(mago1);              //agrega magia a la escena
                 }
-                aunmnmentar();
-                aunmnmentar1();
+                aunmnmentar();          //invoca la función aunmnmentar para el puntaje
+                aunmnmentar1();         //invoca la función aunmnmentar para el puntaje
+            }
     }
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_pushButton_2_clicked()              //para multiplayer
 {
-    n=9;
-    vida_=2;
-    puntaje_=1;
-    niveles();
-    timer->start(6);
-    if (ainz1.size() == 1){
-       ainz1.push_back(new Jugador(2));
-       ainz1.back()->actualizar(v_limit);
-       scene->addItem(ainz1.back());
+    n=9;                                                //se actualiza el nivel
+    vida_=2;                                            //se actualizan las vidas
+    puntaje_=1;                                         //sde actualiza el puntaje
+    niveles();                                          //se invoca la función puntaje
+    timer->start(6);                                    //se crea un timer que revise cada detreminado tiempo
+    if (ainz1.size() == 1){                             //si ya hay un personaje
+       ainz1.push_back(new Jugador(2));                 //invoca el segundo jugado
+       ainz1.back()->actualizar(v_limit);               //le las propiedades fisicas
+       scene->addItem(ainz1.back());                    //agrega al personaje a la escena
     }
-    else if(ainz1.size() == 2){
-        scene->removeItem(ainz1.back());
-        ainz1.removeAt(1);
+    else if(ainz1.size() == 2){                         //si estan los 2 personajes
+        scene->removeItem(ainz1.back());                //remueve 1
+        ainz1.removeAt(1);                              //lo elimina de la lista
     }
 
 }
 void MainWindow::recoger()
 {
-    QList<Anillo*>::iterator i;
-    for(i=anillos.begin();i!=anillos.end();i++){
-        if(ainz1[0]->collidesWithItem(*i)){
-                scene->removeItem(*i);
-                anillos.removeOne(*i);
-                puntaje_+=100;
+    QList<Anillo*>::iterator i;                         //se mete a la lista donde se crean los anillos
+    for(i=anillos.begin();i!=anillos.end();i++){        //un ciclo que depede de la cantidad de objetos en la lista
+        if(ainz1[0]->collidesWithItem(*i)){             //si hay alguna colision entre el personaje y el objeto de la lista
+                scene->removeItem(*i);                  //remueve el objeto de la escena
+                anillos.removeOne(*i);                  //remueve el objeto de la lista
+                puntaje_+=100;                          //aumeta el puntaje
         }
     }
 
-    QList<swords*>::iterator ii;
-    for(ii=swordss.begin();ii!=swordss.end();ii++){
-        if(ainz1[0]->collidesWithItem(*ii)){
-                scene->removeItem(*ii);
-                swordss.removeOne(*ii);
-                puntaje_+=100;
+    QList<swords*>::iterator ii;                        //se mete a la lista donde se crean los swords(espadas)
+    for(ii=swordss.begin();ii!=swordss.end();ii++){     //un ciclo que depede de la cantidad de objetos en la lista
+        if(ainz1[0]->collidesWithItem(*ii)){            //si hay alguna colision entre el personaje y el objeto de la lista
+                scene->removeItem(*ii);                 //remueve el objeto de la escena
+                swordss.removeOne(*ii);                 //remueve el objeto de la lista
+                puntaje_+=100;                          //aumeta el puntaje
         }
     }
-    QList<cetro*>::iterator iii;
-    for(iii=cetros.begin();iii!=cetros.end();iii++){
-        if(ainz1[0]->collidesWithItem(*iii)){
-                scene->removeItem(*iii);
-                cetros.removeOne(*iii);
-                puntaje_+=1;
+    QList<cetro*>::iterator iii;                         //se mete a la lista donde se crean los cetros
+    for(iii=cetros.begin();iii!=cetros.end();iii++){     //un ciclo que depede de la cantidad de objetos en la lista
+        if(ainz1[0]->collidesWithItem(*iii)){            //si hay alguna colision entre el personaje y el objeto de la lista
+                scene->removeItem(*iii);                 //remueve el objeto de la escena
+                cetros.removeOne(*iii);                 //remueve el objeto de la lista
+                puntaje_+=1;                            //aumeta el puntaje
         }
     }
-    QList<cetro1*>::iterator iiii;
-    for(iiii=cetros1.begin();iiii!=cetros1.end();iiii++){
-        if(ainz1[1]->collidesWithItem(*iiii)){
-                scene->removeItem(*iiii);
-                cetros1.removeOne(*iiii);
-                puntaje2_+=1;
+    QList<cetro1*>::iterator iiii;                              //se mete a la lista donde se crean los cetros
+    for(iiii=cetros1.begin();iiii!=cetros1.end();iiii++){       //un ciclo que depede de la cantidad de objetos en la lista
+        if(ainz1[1]->collidesWithItem(*iiii)){                  //si hay alguna colision entre el personaje y el objeto de la lista
+                scene->removeItem(*iiii);                       //remueve el objeto de la escena
+                cetros1.removeOne(*iiii);                       //remueve el objeto de la lista
+                puntaje2_+=1;                                   //aumeta el puntaje
         }
     }
 }
 
 void MainWindow::aumentar()
 {
-    QList<salud*>::iterator s;
-    for(s=curas.begin();s!=curas.end();s++){
-        if(ainz1[0]->collidesWithItem(*s)){
-                scene->removeItem(*s);
-                curas.removeOne(*s);
-                vida_+=1;
+    QList<salud*>::iterator s;                          //se mete a la lista donde se crean los simbolos para vida extra
+    for(s=curas.begin();s!=curas.end();s++){            //un ciclo que depede de la cantidad de objetos en la lista
+        if(ainz1[0]->collidesWithItem(*s)){             //si hay alguna colision entre el personaje y el objeto de la lista
+                scene->removeItem(*s);                  //remueve el objeto de la escena
+                curas.removeOne(*s);                    //remueve el objeto de la lista
+                vida_+=1;                               //aumeta el puntaje
         }
     }
 
@@ -797,31 +834,31 @@ void MainWindow::aumentar()
 
 void MainWindow::generarObstaculos()
 {
-    bolaDeFuego1 = new obstaculos1(750,250,30,30);
-    bolaDeFuego1->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));
-    scene->addItem(bolaDeFuego1);
+    bolaDeFuego1 = new obstaculos1(750,250,30,30);          //crea un objeto(bola de fuego) y le da posición y tamaño
+    bolaDeFuego1->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));           //le da imagen al objeto de acuerdo con una imagen predeterminada y gracias a scaled redimenciona la imagen para que quede "nitida"
+    scene->addItem(bolaDeFuego1);                           //agrega el objeto a la escena
 
-    bolasdefuego.push_back(bolaDeFuego1);
-
-
-    bolaDeFuego6 = new obstaculos(430,250,30,30);
-    bolaDeFuego6->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));
-    scene->addItem(bolaDeFuego6);
-
-    bolasDeFuego.push_back(bolaDeFuego6);
+    bolasdefuego.push_back(bolaDeFuego1);                   //añade un elemento al final
 
 
-    bolaDeFuego2 = new obstaculos2(920,640,30,30);
-    bolaDeFuego2->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));
-    scene->addItem(bolaDeFuego2);
+    bolaDeFuego6 = new obstaculos(430,250,30,30);            //crea un objeto(bola de fuego) y le da posición y tamaño
+    bolaDeFuego6->setPixmap(QPixmap(":/imagen/bolaFuego.png").scaled(50,50));           //le da imagen al objeto de acuerdo con una imagen predeterminada y gracias a scaled redimenciona la imagen para que quede "nitida"
+    scene->addItem(bolaDeFuego6);                           //agrega el objeto a la escena
 
-    bolasdefuego1.push_back(bolaDeFuego2);
+    bolasDeFuego.push_back(bolaDeFuego6);                   //añade un elemento al final
 
-    bolaDeFuego3 = new obstaculos2(250,640,30,30);
-    bolaDeFuego3->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));
-    scene->addItem(bolaDeFuego3);
 
-    bolasdefuego1.push_back(bolaDeFuego3);
+    bolaDeFuego2 = new obstaculos2(920,640,30,30);          //crea un objeto(bola de fuego) y le da posición y tamaño
+    bolaDeFuego2->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));           //le da imagen al objeto de acuerdo con una imagen predeterminada y gracias a scaled redimenciona la imagen para que quede "nitida"
+    scene->addItem(bolaDeFuego2);                           //agrega el objeto a la escena
+
+    bolasdefuego1.push_back(bolaDeFuego2);                  //añade un elemento al final
+
+    bolaDeFuego3 = new obstaculos2(250,640,30,30);          //crea un objeto(bola de fuego) y le da posición y tamaño
+    bolaDeFuego3->setPixmap(QPixmap(":/imagen/fireball_.png").scaled(50,50));           //le da imagen al objeto de acuerdo con una imagen predeterminada y gracias a scaled redimenciona la imagen para que quede "nitida"
+    scene->addItem(bolaDeFuego3);                           //agrega el objeto a la escena
+
+    bolasdefuego1.push_back(bolaDeFuego3);                  //añade un elemento al final
 }
 
 void MainWindow::aunmnmentar()
@@ -829,62 +866,62 @@ void MainWindow::aunmnmentar()
 
     string datos;
     ifstream registro;
-    registro.open("../juego2020/Nuevo documento de texto (2).txt", ios::in);
-    if (registro.fail())
+    registro.open("../juego2020/Nuevo documento de texto (2).txt", ios::in);        //abre el archivo de texto Nuevo documento de texto (2)
+    if (registro.fail())                                                            //si hay alguna falla abriendo el archivo se retorna error
         cerr << "Error" << endl;
-    while (registro.good()){
-        char tem=registro.get();
+    while (registro.good()){                                                        //mientras sea un caracter valido
+        char tem=registro.get();                                                    //a tem se le da un carcter del archivo
         if (registro.good()){
-                    datos+=tem;
+                    datos+=tem;                                                     //tem se agrega al string datos
                 }
     }
-    registro.close();
-    int p=stoi(datos);
-     puntaje_+=p;
-     magia().getcolision(0);
+    registro.close();                                                               //se cierra el archivo de texto
+    int p=stoi(datos);                                                              //se convierte de string a entero
+     puntaje_+=p;                                                                   //el valor que se convirtio a entero se suma a puntaje
+     magia().getcolision(0);                                                        //se mete a la funcion getcolision ubicada en magia, con parametro 0
 }
 
 void MainWindow::aunmnmentar1()
 {
     string datos;
     ifstream registro;
-    registro.open("../juego2020/Nuevo documento de texto (4).txt", ios::in);
-    if (registro.fail())
+    registro.open("../juego2020/Nuevo documento de texto (4).txt", ios::in);        //abre el archivo de texto Nuevo documento de texto (4)
+    if (registro.fail())                                                            //si hay alguna falla abriendo el archivo se retorna error
         cerr << "Error" << endl;
-    while (registro.good()){
-        char tem=registro.get();
+    while (registro.good()){                                                        //mientras sea un caracter valido
+        char tem=registro.get();                                                    //a tem se le da un carcter del archivo
         if (registro.good()){
-                    datos+=tem;
+                    datos+=tem;                                                     //tem se agrega al string datos
                 }
     }
-    registro.close();
-    if (datos=="1"){
-        puntaje2_+=1;
+    registro.close();                                                               //se cierra el archivo de texto
+    if (datos=="1"){                                                                //si el caracter es 1 se suma a puntaje
+        puntaje2_+=1;                                                               //se suma 1 a puntaje2_, para el segundo jugador
     }
-    if (datos=="0"){
-        puntaje2_+=0;
+    if (datos=="0"){                                                                //si el caracter es 0 se suma a puntaje
+        puntaje2_+=0;                                                               //se suma 0 a puntaje_, para el segundo jugador
     }
 
-     magia1().getcolision1(0);
+     magia1().getcolision1(0);                                                      //se mete a la funcion getcolision1 ubicada en magia1, con parametro 0
 }
 
 void MainWindow::decrementar()
 {
     string datos;
     ifstream registro;
-    registro.open("../juego2020/enemigos.txt", ios::in);
-    if (registro.fail())
+    registro.open("../juego2020/enemigos.txt", ios::in);                //abre el archivo de texto enemigos
+    if (registro.fail())                                                //si hay alguna falla abriendo el archivo se retorna error
         cerr << "Error" << endl;
-    while (registro.good()){
-        char tem=registro.get();
+    while (registro.good()){                                            //mientras sea un caracter valido
+        char tem=registro.get();                                        //a tem se le da un carcter del archivo
         if (registro.good()){
-                    datos+=tem;
+                    datos+=tem;                                         //tem se agrega al string datos
                 }
     }
-    registro.close();
-    int v=stoi(datos);
-     vida_-=v;
-     Enemy().getcolisionenemy(0);
+    registro.close();                                                   //se cierra el archivo de texto
+    int v=stoi(datos);                                                  //se convierte de string a entero
+     vida_-=v;                                                          //se restaun valor a vida
+     Enemy().getcolisionenemy(0);                                       //se mete a la funcion getcolisionemy ubicada en Enemy, con parametro 0
 
 }
 

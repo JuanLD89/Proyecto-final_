@@ -70,7 +70,7 @@ void magia::getcolision(int puntaje)
 
 magia1::magia1()
 {
-       setPixmap(QPixmap(":/imagen/momongasword (1).png"));     //dibuja al enemigo con una imagen predeterminada
+       setPixmap(QPixmap(":/imagen/momongasword (1).png").scaled(100,25));     //dibuja al enemigo con una imagen predeterminada y gracias a scaled redimenciona la imagen para que quede "nitida"
 
        //MOVER LA MAGIA
        QTimer *timer = new QTimer();                                        //crea un timer
