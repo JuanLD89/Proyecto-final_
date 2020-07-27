@@ -103,9 +103,9 @@ private:
     float dt;                   //intervalo de tiempo entre frames
     int h_limit;                //longitud en X del mundo
     int v_limit;                //longitud en Y del mundo
-    int puntaje_=1;             //el puntaje inicial que tendra el jugador
+    int puntaje_=0;             //el puntaje inicial que tendra el jugador
     int vida_=6;                //vida inicial del jugador
-    int puntaje2_=1;            //puntaje inicial del jugador en multiplayer
+    int puntaje2_=0;            //puntaje inicial del jugador en multiplayer
     int n = 0;                  //nivel inicial
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador

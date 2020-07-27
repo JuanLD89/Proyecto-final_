@@ -62,50 +62,31 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
 
 
     }
-
-
     this->ui->lcdNumber->display(vida_);            //conexion con lcdNumber
     if(vida_ < 1 && ainz1.size()==1){               //si unicamente hay un jugador y hay menos de 1 vida
-        n = 0;                                      //el nivel será 0
+        n = 8;                                      //el nivel será 8
         niveles();                                  //se invoca la funcin niveles
         scene->removeItem(ainz1.back());            //remueve a ainz de la escena
         ainz1.removeAt(0);                          //lo remueve de la lista
     }
 
     this->ui->lcdNumber_2->display(puntaje_);       //conexion con lcdNumber
-    if(puntaje_ < 1 && ainz1.size()==1){            //si unicamente hay un jugador y hay menos de 1 vida
+    /*if(puntaje_ < 1 && ainz1.size()==1){            //si unicamente hay un jugador y hay menos de 1 vida
         n = 0;                                      //el nivel será 0
         niveles();                                  //se invoca la funcin niveles
         scene->removeItem(ainz1.back());            //remueve a ainz de la escena
         ainz1.removeAt(0);                          //lo remueve de la lista
-    }
+    }*/
 
     this->ui->lcdNumber_3->display(puntaje2_);      //conexion con lcdNumber
-    if(puntaje2_ < 1 && ainz1.size()==2){           //si unicamente hay un jugador y hay menos de 1 vida
+    /*if(puntaje2_ < 1 && ainz1.size()==2){           //si unicamente hay un jugador y hay menos de 1 vida
         n = 9;                                      //el nivel será 9
         niveles();                                  //se invoca la funcin niveles
         scene->removeItem(ainz1.back());            //remueve a momon de la escena
         ainz1.removeAt(1);                          //lo remueve de la lista
-    }
+    }*/
 
 
-    if (vida_==0){                                  //si pierde todas las vidaas
-
-        scene->removeItem(cura1);                   //remueve la vida extra de la escena
-        curas.removeOne(cura1);                     //remueve el objeto de la lista
-        scene->removeItem(anillo1);                 //remueve el anillo de la escena
-        anillos.removeOne(anillo1);                 //remueve el objeto de la lista
-        scene->removeItem(sword1);                  //remueve la espada de la escena
-        swordss.removeOne(sword1);                  //remueve el objeto de la lista
-        scene->removeItem(uno);                     //remueve la uno de los 3 objetivos del pimer nivel de la escena
-        objetivoss.removeOne(uno);                   //remueve el objeto de la lista
-        scene->removeItem(dos);                      //remueve la uno de los 3 objetivos del pimer nivel de la escena
-        objetivoss.removeOne(dos);                  //remueve el objeto de la lista
-        scene->removeItem(tres);                    //remueve la uno de los 3 objetivos del pimer nivel de la escena
-        objetivoss.removeOne(tres);                 //remueve el objeto de la lista
-        n=8;                                        //el nivel sera 8
-        niveles();                                  //se invoca la función niveles
-    }
 }
 void MainWindow::enemigos11()
 {
@@ -114,8 +95,6 @@ void MainWindow::enemigos11()
         scene->addItem(enemigo);                    //agrega  enemigoo a la escena
 
     }
-
-
 }
 
 void MainWindow::contadorparaenemigos()
@@ -183,7 +162,7 @@ void MainWindow::niveles(){
         dos= new objetivos(910,305,50,50);scene->addItem(dos);objetivoss.push_back(dos);            //crea un objetivo a destruir con magia
         tres= new objetivos(910,480,50,50);scene->addItem(tres);objetivoss.push_back(tres);         //crea un objetivo a destruir con magia
         cura= new salud(750,140,50,50);scene->addItem(cura);curas.push_back(cura);                  //crea la vida extra a recoger en el nivel 1
-
+        anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);      //agrega el anillo a la escena
 
         if (n==2){
             contadorparaenemigos();                                             //invoca la función a cargo de ivoacr los enemigos al nivel
@@ -282,18 +261,23 @@ void MainWindow::niveles(){
             ui->graphicsView->setScene(scene);                   //declara la escena
             ui->centralwidget->adjustSize();                    //ajusta la escena
             scene->addRect(scene->sceneRect());                 //agrega la escen
-            scene->setBackgroundBrush(QPixmap(":/imagen/Fondo-blanco-pagina-01 (1).png"));          //da una imagen a la escena
+            scene->setBackgroundBrush(QPixmap(":/imagen/Fondo-blanco-pagina-01 (1).png").scaled(1250,670));          //da una imagen a la escena
             ui->graphicsView->resize(scene->width(),scene->height());                               //declara las dimensiones
             this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
-        }
+            scene->removeItem(cetro3);                                                                  //remueve cetro3 de la escena
+            cetros1.removeOne(cetro3);
+    }
     if (n==11){
         scene->setSceneRect(0,0,(h_limit-55),v_limit);     //asigna el rectangulo que encierra la scene, determinado por h_limit y v_limit
         ui->graphicsView->setScene(scene);                   //declara la escena
         ui->centralwidget->adjustSize();                    //ajusta la escena
-        scene->addRect(scene->sceneRect());                 //agrega la escen
+        scene->addRect(scene->sceneRect());                 //agrega la escena
         scene->setBackgroundBrush(QPixmap(":/imagen/battle.jpg"));              //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());               //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
+        scene->removeItem(cetro2);                                                                  //remueve cetro2 de la escena
+        cetros.removeOne(cetro2);                                                                   //remueve cetro2 de la lista
+
     }
 
     /*if (n==12){
@@ -354,6 +338,18 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             }
 
         }
+        if (vida_==0){
+            scene->removeItem(anillo1);                  //remueve el anillo del pimer nivel de la escena
+            anillos.removeOne(anillo1);                 //remueve el objeto de la lista
+            scene->removeItem(cura);                   //remueve la vida extra de la escena
+            curas.removeOne(cura);                     //remueve el objeto de la lista
+            scene->removeItem(uno);                     //remueve la uno de los 3 objetivos del pimer nivel de la escena
+            objetivoss.removeOne(uno);                   //remueve el objeto de la lista
+            scene->removeItem(dos);                      //remueve la uno de los 3 objetivos del pimer nivel de la escena
+            objetivoss.removeOne(dos);                  //remueve el objeto de la lista
+            scene->removeItem(tres);                    //remueve la uno de los 3 objetivos del pimer nivel de la escena
+            objetivoss.removeOne(tres);                 //remueve el objeto de la lista
+        }
         if(b->get_posY()<((b->get_Radio()))){//choque con el borde superior.
             b->set_vel(b->get_velX(),-1*b->get_e()*b->get_velY(), (b->get_posX()), b->get_Radio());
         }
@@ -376,13 +372,13 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
 
 
 
-        //para que aparezca en la escena el anillo luego de destruir los objetivos
+        /*//para que aparezca en la escena el anillo luego de destruir los objetivos
         if (n==2){
             if (puntaje_==4){
-                anillo1= new Anillo(200,140,50,50);scene->addItem(anillo1);anillos.push_back(anillo1);      //agrega el anillo a la escena
                 puntaje_+=1;
             }
-        }
+        }*/
+
     }
     if (n==3){
         //a coninuación sexplicara la ligica de las plataformas
@@ -460,6 +456,12 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         }
         if(b->get_posY() >= 330 && b->get_posY() < 430 && b-> get_posX() >=  1160 && b->get_posX()<1250){       //para alterar la ubicación del personaje
             b->set_vel(0,0, 70, 610);                                                                           //la posicion del pesonaje se actualiza
+        }
+        if (vida_==0){
+            scene->removeItem(cura1);                   //remueve la vida extra de la escena
+            curas.removeOne(cura1);                     //remueve el objeto de la lista
+            scene->removeItem(sword1);                  //remueve la espada de la escena
+            swordss.removeOne(sword1);                  //remueve el objeto de la lista
         }
 
         //a coninuación sexplicara la ligica de las plataformas
@@ -567,12 +569,12 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
 
 
         recoger();                                                                                          //se invoca la funcion recoger para recoger los objetos que exige el nivel para pasarlo
-        if (puntaje_>=4 && puntaje2_>=4){
+        if (puntaje_>=3 && puntaje2_>=3){
             b->set_vel(0,0, 60, 20);                                                                        //la posicion del pesonaje se actualiza
             n=3;                                                                                            //se actualiza el nivel
             niveles();                                                                                      //se invoca la función niveles
         }
-        if (puntaje_>=4 || puntaje2_>=4){
+        if (puntaje_>=3 || puntaje2_>=3){
             if (puntaje2_>puntaje_){
                 b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
                 n=11;                                                                                       //se actualiza el nivel
@@ -583,6 +585,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
                 scene->removeItem(bolasdefuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
                 scene->removeItem(bolasdefuego1.at(0));                                                     //se elimina una de lasbolas de fuego de multiplayer
                 scene->removeItem(bolasdefuego1.at(1));                                                     //se elimina una de lasbolas de fuego de multiplayer
+
             }
             if (puntaje_>puntaje2_){
                 b->set_vel(0,0, 60, 20);                                                                    //la posicion del pesonaje se actualiza
@@ -594,6 +597,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
                 scene->removeItem(bolasdefuego.at(0));                                                      //se elimina una de lasbolas de fuego de multiplayer
                 scene->removeItem(bolasdefuego1.at(0));                                                     //se elimina una de lasbolas de fuego de multiplayer
                 scene->removeItem(bolasdefuego1.at(1));                                                     //se elimina una de lasbolas de fuego de multiplayer
+
             }
         }
    }
@@ -767,7 +771,7 @@ void MainWindow::on_pushButton_2_clicked()              //para multiplayer
 {
     n=9;                                                //se actualiza el nivel
     vida_=2;                                            //se actualizan las vidas
-    puntaje_=1;                                         //sde actualiza el puntaje
+    puntaje_=0;                                         //sde actualiza el puntaje
     niveles();                                          //se invoca la función puntaje
     timer->start(6);                                    //se crea un timer que revise cada detreminado tiempo
     if (ainz1.size() == 1){                             //si ya hay un personaje
