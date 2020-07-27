@@ -109,10 +109,11 @@ void MainWindow::contadorparaenemigos()
 
 void MainWindow::on_pushButton_clicked()
 {
-    iniciarse ini;                            //conexion conn la clase iniciarse
-    iniciarse *inicio = new iniciarse();      //un puntero  a la clase iniciarse
-    inicio->show();                           //muestra la ventana iniciarse
-
+    if (n==0){
+        iniciarse ini;                            //conexion conn la clase iniciarse
+        iniciarse *inicio = new iniciarse();      //un puntero  a la clase iniciarse
+        inicio->show();                           //muestra la ventana iniciarse
+    }
 
     n = 1;                              //una vez se pulse el boton START iniciara en el nivel 1
     niveles();                          //invoca la función niveles
@@ -792,6 +793,11 @@ void MainWindow::on_pushButton_2_clicked()              //para multiplayer
     puntaje_=0;                                         //sde actualiza el puntaje
     niveles();                                          //se invoca la función puntaje
     timer->start(6);                                    //se crea un timer que revise cada detreminado tiempo
+    if (ainz1.size() == 0){                     //si no hay ningun personaje
+        ainz1.push_back(new Jugador(1));
+        ainz1[0] -> actualizar(v_limit);     //actualiza las dimensiones
+        scene -> addItem(ainz1[0]);          //agrega el personaje a la escena
+    }
     if (ainz1.size() == 1){                             //si ya hay un personaje
        ainz1.push_back(new Jugador(2));                 //invoca el segundo jugado
        ainz1.back()->actualizar(v_limit);               //le las propiedades fisicas
