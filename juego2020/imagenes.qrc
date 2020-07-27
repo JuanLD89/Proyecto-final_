@@ -1,29 +1,29 @@
 <RCC>
     <qresource prefix="/imagen">
-        <file>momonga1.png</file>
-        <file>momonga perfil.png</file>
-        <file>enemigo.png</file>
-        <file>bluefire.png</file>
-        <file>fo.png</file>
-        <file>momonga2.png</file>
-        <file>Ring_of_Ainz_Ooal_Gown (1).png</file>
-        <file>swords (1).png</file>
-        <file>simbolo.png</file>
-        <file>objetivos.png</file>
-        <file>nazarik_dungeon.png</file>
-        <file>castigo.png</file>
-        <file>Overlord_III_Episode_13 (1).png</file>
-        <file>momogawar.png</file>
-        <file>ultimateworld.png</file>
-        <file>Jaldabaoth (1).png</file>
-        <file>over.png</file>
-        <file>cetroainz.png</file>
         <file>battle.jpg</file>
-        <file>Fondo-blanco-pagina-01 (1).png</file>
-        <file>momonga3.png</file>
+        <file>bluefire.png</file>
         <file>bolaFuego.png</file>
+        <file>castigo.png</file>
+        <file>cetroainz.png</file>
+        <file>enemigo.png</file>
         <file>fireball_.png</file>
-        <file>Overlord_III_EP09_022 (1).png</file>
+        <file>fo.png</file>
+        <file>Fondo-blanco-pagina-01 (1).png</file>
+        <file>Jaldabaoth (1).png</file>
+        <file>momogawar.png</file>
+        <file>momonga perfil.png</file>
+        <file>momonga1.png</file>
+        <file>momonga2.png</file>
+        <file>momonga3.png</file>
         <file>momongasword (1).png</file>
+        <file>nazarik_dungeon.png</file>
+        <file>objetivos.png</file>
+        <file>over.png</file>
+        <file>Overlord_III_EP09_022 (1).png</file>
+        <file>Overlord_III_Episode_13 (1).png</file>
+        <file>Ring_of_Ainz_Ooal_Gown (1).png</file>
+        <file>simbolo.png</file>
+        <file>swords (1).png</file>
+        <file>ultimateworld.png</file>
     </qresource>
 </RCC>

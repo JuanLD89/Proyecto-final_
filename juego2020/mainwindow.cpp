@@ -71,20 +71,10 @@ void MainWindow::actualizar()//actualiza la posicion dependiendo del timer para 
     }
 
     this->ui->lcdNumber_2->display(puntaje_);       //conexion con lcdNumber
-    /*if(puntaje_ < 1 && ainz1.size()==1){            //si unicamente hay un jugador y hay menos de 1 vida
-        n = 0;                                      //el nivel será 0
-        niveles();                                  //se invoca la funcin niveles
-        scene->removeItem(ainz1.back());            //remueve a ainz de la escena
-        ainz1.removeAt(0);                          //lo remueve de la lista
-    }*/
+
 
     this->ui->lcdNumber_3->display(puntaje2_);      //conexion con lcdNumber
-    /*if(puntaje2_ < 1 && ainz1.size()==2){           //si unicamente hay un jugador y hay menos de 1 vida
-        n = 9;                                      //el nivel será 9
-        niveles();                                  //se invoca la funcin niveles
-        scene->removeItem(ainz1.back());            //remueve a momon de la escena
-        ainz1.removeAt(1);                          //lo remueve de la lista
-    }*/
+
 
 
 }
@@ -572,7 +562,7 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
         recoger();                                                                                          //se invoca la funcion recoger para recoger los objetos que exige el nivel para pasarlo
         if (puntaje_>=3 && puntaje2_>=3){
             b->set_vel(0,0, 60, 20);                                                                        //la posicion del pesonaje se actualiza
-            n=3;                                                                                            //se actualiza el nivel
+            n=5;                                                                                            //se actualiza el nivel
             niveles();                                                                                      //se invoca la función niveles
         }
         if (puntaje_>=3 || puntaje2_>=3){
