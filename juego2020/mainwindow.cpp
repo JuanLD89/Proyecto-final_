@@ -601,6 +601,24 @@ void MainWindow::bordercollision(actualizaciones *b)//son los choques con los bo
             }
         }
    }
+    if (n==10){
+        scene->removeItem(gown);                                    //remueve uno de los objetivos en multijugador de la escena
+        ooal.removeOne(gown);                                       //remueve el objeto de la lista
+        //scene->removeItem(gown1);                                 //remueve uno de los objetivos en multijugador de la escena
+        //ooal.removeOne(gown1);                                    //remueve el objeto de la lista
+        scene->removeItem(gown2);                                   //remueve uno de los objetivos en multijugador de la escena
+        ooal.removeOne(gown2);                                      //remueve el objeto de la lista
+
+    }
+    if (n==11){
+        scene->removeItem(momon1);                                  //remueve uno de los objetivos en multijugador de la escena
+        momon.removeOne(momon1);                                    //remueve el objeto de la lista
+        //scene->removeItem(momon2);                                //remueve uno de los objetivos en multijugador de la escena
+        //momon.removeOne(momon2);                                  //remueve el objeto de la lista
+        scene->removeItem(momon3);                                  //remueve uno de los objetivos en multijugador de la escena
+        momon.removeOne(momon3);                                    //remueve el objeto de la lista
+
+    }
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
