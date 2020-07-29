@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QTime>
 #include "magia.h"
+#include <QMediaPlayer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);      //declara la escena
     ui->centralwidget->adjustSize();        //ajusta la escena
     scene->addRect(scene->sceneRect());     //agrega la escena
-    scene->setBackgroundBrush(QBrush(QImage(":/imagen/Overlord_III_Episode_13 (1).png")));   //da una imagen a la escena
+    scene->setBackgroundBrush(QBrush(QImage(":/imagen/Overlord_III_Episode_13 (1).png").scaled(1250,670)));   //da una imagen a la escena
     ui->graphicsView->resize(scene->width(),scene->height());           //declara las dimensiones
     this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);            //ejecuta y crea las dimensiones
 
@@ -41,6 +42,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(MoverYColisionBolasDeFuego()));       //crea un timer para llamar a la funcion moverbolasdefuego y permite los movimientos fisicos de las bolas de fuego
     timer -> start(20);     //se declara cada cuanto tiempo actualiza la información
+    QMediaPlayer * music = new QMediaPlayer;
+    music->setMedia(QUrl("qrc:/sounds/endingoverlord.mp3"));
+    music->play();
+
 }
 
 MainWindow::~MainWindow()               //destructor
@@ -138,6 +143,7 @@ void MainWindow::niveles(){
         scene->setBackgroundBrush(QPixmap(":/imagen/momonga1.png"));    //da una imagen a la escena
         ui->graphicsView->resize(scene->width(),scene->height());       //declara las dimensiones
         this->resize(ui->graphicsView->width()+100, ui->graphicsView->height()+100);        //ejecuta y crea las dimensiones
+        //play background music
 
     }
     if(n == 2){
