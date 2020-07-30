@@ -74,6 +74,8 @@ private slots:
     void niveles();             //actualiza el nivel en el que se encuentra el jugador
     void enemigos11();          //crea los enemigos, invocando su función
     void contadorparaenemigos();//crea un timer para invocar enemigos
+    void felicidades();
+    void actualizar1();
 
     void on_pushButton_clicked();       //funcial para la aaccion que el prograama tomará al pulsar START
 
@@ -110,6 +112,8 @@ private:
     void bordercollision(actualizaciones *b);   //metodo para las colisiones con los bordes del mundo
     void keyPressEvent(QKeyEvent *event);       //control de los movimientos del jugador
     QList<Jugador*> ainz1;   //lista con los cuerpos para mostrarlos.
+    QList<trono*> objetoo;   //lista con los cuerpos para mostrarlos.
+
 
 };
 #endif // MAINWINDOW_H

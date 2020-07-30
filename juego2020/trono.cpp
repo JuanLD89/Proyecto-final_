@@ -1,47 +1,36 @@
 #include "trono.h"
-
-int trono::getX() const
-{
-    return x;               //retorna la posicion en x
-}
-
-void trono::setX(int value)
-{
-    x = value;              //asigna un nuevo valor a x
-}
-
-int trono::getY() const
-{
-    return y;               //retorna la posicion en y
-}
-
-void trono::setY(int value)
-{
-    y = value;              //asigna un nuevo valor a y
-}
+#include "QDebug"
+#include <stdlib.h>     /* srand, rand, abs */
+#include <time.h>       /* time */
 
 trono::trono()
 {
+    setPixmap(QPixmap(":/imagen/congrats.png").scaled(700,300));
+    float posx, posy, velx , vely ,r, mass, K, e;
+    posx = 200;
+    posy = 550;
+    r = 65;
+    mass = 50;
+    velx = 0;
+    vely = 0;
+    K = 0.08;
+    e = 0.2;
 
+    tronot = new actualizaciones(posx,posy,velx,vely,mass,r,K,e);
 }
 
-trono::trono(int x_, int y_, int w_, int h_)
+trono::~trono()
 {
-
-    x=x_;           //asigna un valor para la posición en x
-    y=y_;           //asigna un valor para la posición en y
-    w=w_;           //asigna un valor para la anchura
-    h=h_;           //asigna un valor para la altura
+    delete tronot;
 }
 
-QRectF trono::boundingRect() const
+void trono::actualizar1(float v_lim)
 {
-    return QRect(x,y,w,h);      //retorna la figura con las posiciones y las mediciones
+    tronot->actualizar();
+    setPos(tronot->get_posX(),(v_lim-tronot->get_posY()));
 }
 
-void trono::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+actualizaciones *trono::gettrono()
 {
-    QPixmap pixmap;
-    pixmap.load(":/imagen/Ring_of_Ainz_Ooal_Gown (1).png");         //carga la imagen
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());       //dibuja la imagen
+    return tronot;
 }
